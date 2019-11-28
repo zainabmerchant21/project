@@ -1,0 +1,105 @@
+0000.021 () Opened log file at time: Fri, 22 Nov 2019 11:26:12 +0000 on http://localhost/krafty
+0000.022 () UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.16.20 WP: 5.3 PHP: 7.1.30 (apache2handler, Windows NT DESKTOP-NC4AMQQ 10.0 build 17763 (Windows 10) AMD64) MySQL: 10.3.16-MariaDB WPLANG: en_US Server: Apache/2.4.39 (Win64) OpenSSL/1.0.2s PHP/7.1.30 safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 61.8M | 8M) multisite: N openssl: OpenSSL 1.0.2r  26 Feb 2019 mcrypt: Y LANG:  ZipArchive::addFile: Y
+0000.022 () Free space on disk containing Updraft's temporary directory: 77544.4 MB
+0000.015 () Opened log file at time: Fri, 22 Nov 2019 11:26:13 +0000 on http://localhost/krafty
+0000.016 () UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.16.20 WP: 5.3 PHP: 7.1.30 (apache2handler, Windows NT DESKTOP-NC4AMQQ 10.0 build 17763 (Windows 10) AMD64) MySQL: 10.3.16-MariaDB WPLANG: en_US Server: Apache/2.4.39 (Win64) OpenSSL/1.0.2s PHP/7.1.30 safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 56.5M | 2M) multisite: N openssl: OpenSSL 1.0.2r  26 Feb 2019 mcrypt: Y LANG:  ZipArchive::addFile: Y
+0000.016 () Free space on disk containing Updraft's temporary directory: 77544.2 MB
+0000.029 () Ensuring WP_Filesystem is setup for a restore
+0000.032 () WP_Filesystem is setup and ready for a restore
+0000.036 () Restore job started. Entities to restore: plugins, themes, uploads, others, db. Restore options: {"updraft_encryptionphrase":"","updraft_restorer_wpcore_includewpconfig":false,"updraft_incremental_restore_point":-1}
+0000.051 () Will not delete any archives after unpacking them, because there was no cloud storage for this backup
+0000.053 () Entity: db
+0000.053 () restore_backup(backup_file=backup_2019-11-22-0735_Krafty_4f69bda82346-db.gz, type=db, info=a:0:{}, last_one=)
+0000.053 () PHP event: code E_NOTICE: Undefined index: path (line 1403, C:\xampp\htdocs\krafty\wp-content\plugins\updraftplus\restorer.php)
+0000.054 () Unpacking backup... (backup_2019-11-22-0735_Krafty_4f69bda82346-db.gz, 0.4 Mb)
+0000.059 () Database successfully unpacked
+0000.060 () Restoring the database (on a large site this can take a long time - if it times out (which can happen if your web hosting company has configured your hosting to limit resources) then you should use a different method, such as phpMyAdmin)...
+0000.060 () Using direct MySQL access; value of use_mysqli is: 1
+0000.061 () SQL compatibility mode is: NO_ZERO_IN_DATE,NO_ENGINE_SUBSTITUTION
+0000.173 () Max packet size: 32 MB
+0000.173 () Entering maintenance mode
+0000.173 () Enabling Maintenance mode&#8230;
+0000.177 () Backup of: http://localhost/krafty
+0000.178 () Content URL: http://localhost/krafty/wp-content
+0000.178 () Uploads URL: http://localhost/krafty/wp-content/uploads
+0000.179 () Old table prefix: kr_
+0000.179 () Site information: multisite=0
+0000.180 () New table prefix: kr_
+0000.191 () Processing table (InnoDB): kr_options
+0000.278 () Restoring prior UD configuration (table: kr_options; keys: 4)
+0000.288 () Elegant themes theme builder plugin data detected: resetting temporary folder
+0000.291 () Processing table (InnoDB): kr_users
+0000.333 () Processing table (InnoDB): kr_usermeta
+0000.364 () Processing table (InnoDB): kr_commentmeta
+0000.395 () Processing table (InnoDB): kr_comments
+0000.424 () Processing table (InnoDB): kr_links
+0000.482 () Processing table (InnoDB): kr_postmeta
+0000.579 () Processing table (InnoDB): kr_posts
+0000.764 () Processing table (InnoDB): kr_term_relationships
+0000.801 () Processing table (InnoDB): kr_term_taxonomy
+0000.833 () Processing table (InnoDB): kr_termmeta
+0001.002 () Processing table (InnoDB): kr_terms
+0001.043 () Processing table (InnoDB): kr_yoast_seo_links
+0001.085 () Processing table (InnoDB): kr_yoast_seo_meta
+0001.118 () Processing table (InnoDB): kr_smush_dir_images
+0001.146 () Database queries processed: 50 in 1.08 seconds
+0001.159 () Processing table (InnoDB): kr_wsal_metadata
+0001.549 () Processing table (InnoDB): kr_wsal_occurrences
+0001.617 () Processing table (InnoDB): kr_wsal_options
+0001.718 () Unlocking database and leaving maintenance mode
+0001.718 () Disabling Maintenance mode&#8230;
+0001.719 () Finished: lines processed: 76 in 1.65 seconds
+0001.719 () Cleaning up rubbish...
+0001.732 () Entity: plugins
+0001.732 () restore_backup(backup_file=backup_2019-11-22-0735_Krafty_4f69bda82346-plugins.zip, type=plugins, info=a:2:{s:4:"path";s:41:"C:\xampp\htdocs\krafty/wp-content/plugins";s:11:"description";s:7:"Plugins";}, last_one=)
+0001.733 () Unpacking backup... (backup_2019-11-22-0735_Krafty_4f69bda82346-plugins.zip, 24 MB)
+0001.734 () Unzipping backup_2019-11-22-0735_Krafty_4f69bda82346-plugins.zip to C:/xampp/htdocs/krafty/wp-content/upgrade/f21668da/ using UpdraftPlus_ZipArchive, starting index 0
+0005.125 () Unzip progress: 1002 out of 5245 files (6.7 MB, plugins/akismet/class.akismet-cli.php)
+0017.170 () Unzip progress: 2003 out of 5245 files (13 MB, plugins/post-smtp/Postman/Postman-Mail/PostmanSendGridMailEngine.php)
+0028.197 () Unzip progress: 3004 out of 5245 files (37 MB, plugins/updraftplus/vendor/aws/aws-sdk-php/src/Aws/S3/SseCpkListener.php)
+0038.289 () Unzip progress: 4005 out of 5245 files (41.3 MB, plugins/wordpress-seo/config/php-scoper/dependency-injection.inc.php)
+0051.672 () Unzip progress: 5006 out of 5245 files (59.7 MB, plugins/wp-security-audit-log/sdk/freemius/templates/plugin-info/description.php)
+0054.665 () Unzip progress: 5245 out of 5245 files (65.7 MB, plugins/wp-smushit/_src/scss/resize-detection.scss)
+0054.667 () Moving old data: filesystem method / updraft_dir is potentially possible
+0054.667 () Moving old data: can potentially use wp_filesystem method / -old
+0054.667 () Moving old data out of the way...
+0055.290 () Top-level entities being moved: advanced-custom-fields, akismet, autoptimize, classic-editor, contact-form-7, custom-post-type-ui, hello.php, index.php, post-smtp, updraftplus, wordpress-seo, wp-security-audit-log, wp-smushit
+0055.394 () Moving unpacked backup into place...
+0056.044 () Top-level entities being moved: advanced-custom-fields, akismet, autoptimize, classic-editor, contact-form-7, custom-post-type-ui, hello.php, index.php, post-smtp, updraftplus, wordpress-seo, wp-security-audit-log, wp-smushit
+0056.145 () Cleaning up rubbish...
+0056.151 () Entity: themes
+0056.151 () restore_backup(backup_file=backup_2019-11-22-0735_Krafty_4f69bda82346-themes.zip, type=themes, info=a:2:{s:4:"path";s:40:"C:\xampp\htdocs\krafty/wp-content/themes";s:11:"description";s:6:"Themes";}, last_one=)
+0056.152 () Unpacking backup... (backup_2019-11-22-0735_Krafty_4f69bda82346-themes.zip, 11.6 MB)
+0056.152 () Unzipping backup_2019-11-22-0735_Krafty_4f69bda82346-themes.zip to C:/xampp/htdocs/krafty/wp-content/upgrade/f2827bb7/ using UpdraftPlus_ZipArchive, starting index 0
+0069.325 () Unzip progress: 1002 out of 1244 files (32.6 MB, themes/twentynineteen/inc/back-compat.php)
+0071.929 () Unzip progress: 1244 out of 1244 files (37.1 MB, themes/twentytwenty/templates/template-full-width.php)
+0071.930 () Moving old data: filesystem method / updraft_dir is potentially possible
+0071.931 () Moving old data: can potentially use wp_filesystem method / -old
+0071.931 () Moving old data out of the way...
+0072.077 () Top-level entities being moved: Divi, index.php, krafty, twentynineteen, twentyseventeen, twentysixteen, twentytwenty
+0072.097 () Error message: Could not move the files into place. Check your file permissions.
+0072.097 () Error data (move_failed): C:\xampp\htdocs\krafty/wp-content/themes/krafty -> C:\xampp\htdocs\krafty/wp-content/updraft/themes-old/krafty
+0072.097 () themes: C:/xampp/htdocs/krafty/wp-content/themes: deleting contents (as attempts to copy failed)
+0072.219 () Moving unpacked backup into place...
+0072.363 () Top-level entities being moved: Divi, index.php, krafty, twentynineteen, twentyseventeen, twentysixteen, twentytwenty
+0072.399 () Cleaning up rubbish...
+0072.404 () Entity: uploads
+0072.405 () restore_backup(backup_file=backup_2019-11-22-0735_Krafty_4f69bda82346-uploads.zip, type=uploads, info=a:2:{s:4:"path";s:41:"C:\xampp\htdocs\krafty/wp-content/uploads";s:11:"description";s:7:"Uploads";}, last_one=)
+0072.405 () Unpacking backup... (backup_2019-11-22-0735_Krafty_4f69bda82346-uploads.zip, 265.6 MB)
+0072.406 () Unzipping backup_2019-11-22-0735_Krafty_4f69bda82346-uploads.zip to C:/xampp/htdocs/krafty/wp-content/upgrade/4775bab7/ using UpdraftPlus_ZipArchive, starting index 0
+0076.075 () Unzip progress: 729 out of 1595 files (100.1 MB, uploads/2019/11/home1-slide1.jpg)
+0078.554 () Unzip progress: 1216 out of 1595 files (200.1 MB, uploads/2019/11/portfolio-1-400x460.jpg)
+0080.627 () Unzip progress: 1595 out of 1595 files (265.3 MB, uploads/wp-security-audit-log/index.php)
+0080.629 () Moving old data: filesystem method / updraft_dir is potentially possible
+0080.630 () Moving old data: can potentially use wp_filesystem method / -old
+0080.630 () Moving old data out of the way...
+0080.865 () Moving unpacked backup into place...
+0081.039 () Cleaning up rubbish...
+0081.103 () Entity: others
+0081.103 () restore_backup(backup_file=backup_2019-11-22-0735_Krafty_4f69bda82346-others.zip, type=others, info=a:2:{s:4:"path";s:33:"C:\xampp\htdocs\krafty/wp-content";s:11:"description";s:6:"Others";}, last_one=1)
+0081.104 () Unpacking backup... (backup_2019-11-22-0735_Krafty_4f69bda82346-others.zip, 2 MB)
+0081.104 () Unzipping backup_2019-11-22-0735_Krafty_4f69bda82346-others.zip to C:/xampp/htdocs/krafty/wp-content/upgrade/c82da003/ using UpdraftPlus_ZipArchive, starting index 0
+0081.461 () Unzip progress: 19 out of 19 files (12.2 MB, index.php)
+0081.468 () Cleaning up rubbish...
+0081.582 () Restore successful!
+0081.583 () Restore successful
