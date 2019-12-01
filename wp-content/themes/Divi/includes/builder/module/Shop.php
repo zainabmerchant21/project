@@ -118,7 +118,8 @@ class ET_Builder_Module_Shop extends ET_Builder_Module_Type_PostBased {
 				'image' => array(
 					'css'          => array(
 						'main' => array(
-							'border_radii'  => "{$this->main_css_element} .et_shop_image > img",
+							'border_radii'  => "{$this->main_css_element} .et_shop_image > img, {$this->main_css_element} .et_shop_image .et_overlay",
+							'border_radii_hover'  => "{$this->main_css_element} .et_shop_image > img:hover, {$this->main_css_element} .et_shop_image .et_overlay",
 							'border_styles' => "{$this->main_css_element} .et_shop_image > img",
 						),
 					),
@@ -135,8 +136,9 @@ class ET_Builder_Module_Shop extends ET_Builder_Module_Type_PostBased {
 					'tab_slug'        => 'advanced',
 					'toggle_slug'     => 'image',
 					'css'             => array(
-						'main'         => '%%order_class%% .et_shop_image',
+						'main'         => '%%order_class%%.et_pb_module .woocommerce .et_shop_image > img, %%order_class%%.et_pb_module .woocommerce .et_overlay',
 						'overlay' => 'inset',
+						'important' => true,
 					),
 					'default_on_fronts'  => array(
 						'color'    => '',
@@ -438,7 +440,7 @@ class ET_Builder_Module_Shop extends ET_Builder_Module_Type_PostBased {
 	/**
 	 * @inheritdoc
 	 *
-	 * @since ?? Handle star rating letter spacing.
+	 * @since 4.0.6 Handle star rating letter spacing.
 	 */
 	public function get_transition_fields_css_props() {
 		$fields = parent::get_transition_fields_css_props();
@@ -478,18 +480,23 @@ class ET_Builder_Module_Shop extends ET_Builder_Module_Type_PostBased {
 		$columns            = $this->props['columns_number'];
 		$pagination         = 'on' === $this->prop( 'show_pagination', 'off' );
 		$product_categories = array();
+		$product_tags       = array();
 		$use_current_loop   = 'on' === $this->prop( 'use_current_loop', 'off' );
 		$use_current_loop   = $use_current_loop && ( is_search() || et_is_product_taxonomy() );
 
 		if ( $use_current_loop ) {
 			$this->props['include_categories'] = 'all';
 
-			if ( et_is_product_taxonomy() ) {
+			if ( is_product_category() ) {
 				$this->props['include_categories'] = (string) get_queried_object_id();
+			}
+
+			if ( is_product_tag() ) {
+				$product_tags = array( get_queried_object()->slug );
 			}
 		}
 
-		if ( 'product_category' === $type || $use_current_loop ) {
+		if ( 'product_category' === $type || ( $use_current_loop && ! empty( $this->props['include_categories'] ) ) ) {
 			$all_shop_categories     = et_builder_get_shop_categories();
 			$all_shop_categories_map = array();
 			$raw_product_categories  = self::filter_include_categories( $this->props['include_categories'], $post_id, 'product_cat' );
@@ -538,7 +545,7 @@ class ET_Builder_Module_Shop extends ET_Builder_Module_Type_PostBased {
 		}
 
 		$shortcode = sprintf(
-			'[products %1$s limit="%2$s" orderby="%3$s" columns="%4$s" %5$s order="%6$s" %7$s %8$s]',
+			'[products %1$s limit="%2$s" orderby="%3$s" columns="%4$s" %5$s order="%6$s" %7$s %8$s %9$s]',
 			et_core_intentionally_unescaped( $wc_custom_view, 'fixed_string' ),
 			esc_attr( $posts_number ),
 			esc_attr( $orderby ),
@@ -546,7 +553,8 @@ class ET_Builder_Module_Shop extends ET_Builder_Module_Type_PostBased {
 			$product_categories ? sprintf( 'category="%s"', esc_attr( implode( ',', $product_categories ) ) ) : '',
 			esc_attr( $order ),
 			$pagination ? 'paginate="true"' : '',
-			$ids ? sprintf( 'ids="%s"', esc_attr( implode( ',', $ids ) ) ) : ''
+			$ids ? sprintf( 'ids="%s"', esc_attr( implode( ',', $ids ) ) ) : '',
+			$product_tags ? sprintf( 'tag="%s"', esc_attr( implode( ',', $product_tags ) ) ) : ''
 		);
 
 		do_action( 'et_pb_shop_before_print_shop' );
@@ -670,12 +678,14 @@ class ET_Builder_Module_Shop extends ET_Builder_Module_Type_PostBased {
 			'icon_phone'  => $hover_icon_phone,
 		) );
 
-		ET_Builder_Module_Helper_Woocommerce_Modules::add_star_rating_style(
-			$render_slug,
-			$this->props,
-			'%%order_class%% ul.products li.product .star-rating',
-			'%%order_class%% ul.products li.product:hover .star-rating'
-		);
+		if ( class_exists( 'ET_Builder_Module_Helper_Woocommerce_Modules' ) ) {
+			ET_Builder_Module_Helper_Woocommerce_Modules::add_star_rating_style(
+				$render_slug,
+				$this->props,
+				'%%order_class%% ul.products li.product .star-rating',
+				'%%order_class%% ul.products li.product:hover .star-rating'
+			);
+		}
 
 		// Module classnames
 		$this->add_classname( array(

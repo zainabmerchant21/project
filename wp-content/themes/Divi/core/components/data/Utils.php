@@ -245,6 +245,26 @@ class ET_Core_Data_Utils {
 	}
 
 	/**
+	 * Wrapper for {@see self::array_get()} that sanitizes the value before returning it.
+	 *
+	 * @since 4.0.7
+	 *
+	 * @param array  $array     An array which contains value located at `$address`.
+	 * @param string $address   The location of the value within `$array` (dot notation).
+	 * @param mixed  $default   Value to return if not found. Default is an empty string.
+	 * @param string $sanitizer Sanitize function to use. Default is 'sanitize_text_field'.
+	 *
+	 * @return mixed The sanitized value if found, otherwise $default.
+	 */
+	public function array_get_sanitized( $array, $address, $default = '', $sanitizer = 'sanitize_text_field' ) {
+		if ( $value = $this->array_get( $array, $address, $default ) ) {
+			$value = $sanitizer( $value );
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Creates a new array containing only the items that have a key or property or only the items that
 	 * have a key or property that is equal to a certain value.
 	 *
@@ -309,6 +329,21 @@ class ET_Core_Data_Utils {
 		}
 
 		return $array;
+	}
+
+	/**
+	 * Update a nested array value found at the provided path using {@see array_merge()}.
+	 *
+	 * @since 4.0.7
+	 *
+	 * @param array $array
+	 * @param $path
+	 * @param $value
+	 */
+	public function array_update( &$array, $path, $value ) {
+		$current_value = $this->array_get( $array, $path, array() );
+
+		$this->array_set( $array, $path, array_merge( $current_value, $value ) );
 	}
 
 	public function ensure_directory_exists( $path ) {
@@ -424,7 +459,7 @@ class ET_Core_Data_Utils {
 	 *      // Returns '/this/is/a/path/to/file.php'
 	 *     ```
 	 *
-	 * @since ??
+	 * @since 4.0.6
 	 *
 	 * @param string|string[] ...$parts
 	 *
@@ -750,7 +785,7 @@ class ET_Core_Data_Utils {
 	/**
 	 * Returns the WP Filesystem instance.
 	 *
-	 * @since ??
+	 * @since 4.0.6
 	 *
 	 * @return WP_Filesystem_Base {@see ET_Core_PageResource::wpfs()}
 	 */

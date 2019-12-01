@@ -4,7 +4,7 @@ require_once 'module/helpers/Overflow.php';
 
 if ( ! defined( 'ET_BUILDER_PRODUCT_VERSION' ) ) {
 	// Note, this will be updated automatically during grunt release task.
-	define( 'ET_BUILDER_PRODUCT_VERSION', '4.0.6' );
+	define( 'ET_BUILDER_PRODUCT_VERSION', '4.0.7' );
 }
 
 if ( ! defined( 'ET_BUILDER_VERSION' ) ) {
@@ -853,12 +853,14 @@ function et_fb_app_preferences_settings() {
 			'default' => 'off',
 		),
 		'quick_actions_recent_queries' => array(
-			'type'    => 'string',
-			'default' => '',
+			'type'       => 'string',
+			'default'    => '',
+			'max_length' => 100,
 		),
 		'quick_actions_recent_category' => array(
-			'type'    => 'string',
-			'default' => '',
+			'type'       => 'string',
+			'default'    => '',
+			'max_length' => 100,
 		),
 		'modal_preference'       => array(
 			'type'    => 'string',
@@ -1635,6 +1637,12 @@ function et_fb_ajax_save() {
 				default:
 					$preference_value = sanitize_text_field( $preference_value );
 					break;
+			}
+
+			$preference_value_max_length =  et_()->array_get( $preference_data, 'max_length', 0 );
+
+			if ( $preference_value && is_numeric( $preference_value_max_length ) && $preference_value_max_length > 0 ) {
+				$preference_value = substr( $preference_value, 0, $preference_value_max_length );
 			}
 
 			$option_name = 'et_fb_pref_' . $preference_key;

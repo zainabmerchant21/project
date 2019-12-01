@@ -85,3 +85,41 @@ transform:translatey(0);
 -webkit-transition-delay:.2s;
 transition-delay:.2s;
 }
+
+/* New Animation css */
+/*-----Ken Burns Header-----*/
+
+/* .ds-kenburns-header {
+    overflow:hidden ;
+    position: relative;
+    padding: 0;
+} */
+
+.et_parallax_bga  {
+   
+   
+    /* background: url(https://playground.divisoup.com/wp-content/uploads/2016/08/ladybug2.jpg); Chnange to the URL of the image you want to use */
+    /* background-position: center center; */
+    -ms-animation:move 10s ease forwards;
+    -webkit-animation:move 10s ease forwards; 
+    /* -0-animation:move 8s ease forwards; */
+   -moz-animation:move 10s ease forwards;
+     animation:move 10s ease forwards; /*This sets the duration of the effect and the value 'forwards' tells the effect to stop when its finished rather than loop. */
+}
+
+@keyframes move {
+    from {
+    -ms-transform: scale3d(1); 
+    -webkit-transform: scale3d(1); 
+    -o-transform: scale3d(1); 
+    -moz-transform: scale3d(1); 
+    transform: scale3d(1); /*This tells the image to start at its original size*/
+  }
+    to {
+    -ms-transform: scale3d(1.2, 1.2, 1.2) translate3d(0px, -0px, 0px);
+    -webkit-transform: scale3d(1.2, 1.2, 1.2) translate3d(0px, -0px, 0px);
+    -o-transform: scale3d(1.2, 1.2, 1.2) translate3d(0px, -0px, 0px);
+    -moz-transform: scale3d(1.2, 1.2, 1.2) translate3d(0px, -0px, 0px);
+    transform: scale3d(1.2, 1.2, 1.2) translate3d(0px, -0px, 0px); /*This tells the image to finish at 1.2x it's original size and at a position of -150px on the X axis and -120px on the Y axis. You can adjust these values to get the effect you want*/
+  }
+}

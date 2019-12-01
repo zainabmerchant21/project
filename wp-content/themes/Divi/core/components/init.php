@@ -5,6 +5,7 @@ if ( ! function_exists( 'et_core_init' ) ):
  * {@see 'plugins_loaded' (9999999) Must run after cache plugins have been loaded.}
  */
 function et_core_init() {
+	ET_Core_API_Spam_Providers::instance();
 	ET_Core_PageResource::startup();
 
 	if ( defined( 'ET_CORE_UPDATED' ) ) {

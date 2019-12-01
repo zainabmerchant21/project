@@ -29,6 +29,7 @@ if ( ! defined( 'ET_BUILDER_PLACEHOLDER_PORTRAIT_IMAGE_DATA' ) ) {
 }
 
 require_once ET_BUILDER_DIR . 'core.php';
+require_once ET_BUILDER_DIR . 'conditions.php';
 require_once ET_BUILDER_DIR . 'post/PostStack.php';
 require_once ET_BUILDER_DIR . 'feature/ClassicEditor.php';
 require_once ET_BUILDER_DIR . 'feature/post-content.php';
@@ -96,6 +97,7 @@ if ( wp_doing_ajax() && ! is_customize_preview() ) {
 			'et_builder_save_custom_defaults_history',
 			'et_builder_retrieve_custom_defaults_history',
 			'et_theme_builder_api_import_theme_builder_step',
+			'et_pb_submit_subscribe_form',
 		),
 	);
 

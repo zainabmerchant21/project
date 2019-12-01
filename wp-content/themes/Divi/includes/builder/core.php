@@ -324,13 +324,16 @@ function et_builder_get_third_party_unqueryable_post_types() {
  * Get the list of registered Post Types options.
  *
  * @since 3.18
+ * @since ?? Added the $require_editor parameter.
+ *
+ * @param boolean|callable $usort
+ * @param boolean $require_editor
  *
  * @return array
  */
-function et_get_registered_post_type_options( $usort = false ) {
-
-	// Cache key
-	$key = 'et_get_registered_post_type_options';
+function et_get_registered_post_type_options( $usort = false, $require_editor = true ) {
+	$require_editor_key = $require_editor ? '1' : '0';
+	$key                = "et_get_registered_post_type_options:{$require_editor_key}";
 
 	if ( ET_Core_Cache::has( $key ) ) {
 		return ET_Core_Cache::get( $key );
@@ -359,7 +362,7 @@ function et_get_registered_post_type_options( $usort = false ) {
 	foreach ( $raw_post_types as $post_type ) {
 		$is_whitelisted  = in_array( $post_type->name, $whitelist );
 		$is_blacklisted  = in_array( $post_type->name, $blacklist );
-		$supports_editor = post_type_supports( $post_type->name, 'editor' );
+		$supports_editor = $require_editor ? post_type_supports( $post_type->name, 'editor' ) : true;
 		$is_public       = et_builder_is_post_type_public( $post_type->name );
 
 		if ( ! $is_whitelisted && ( $is_blacklisted || ! $supports_editor || ! $is_public ) ) {
@@ -2223,7 +2226,15 @@ function et_builder_email_add_account() {
 	$provider_slug = isset( $_POST['et_provider'] ) ? sanitize_text_field( $_POST['et_provider'] ) : '';
 	$name_key      = "et_{$provider_slug}_account_name";
 	$account_name  = isset( $_POST[ $name_key ] ) ? sanitize_text_field( $_POST[ $name_key ] ) : '';
-	$is_BB         = isset( $_POST['et_bb'] );
+
+	if ( isset( $_POST['module_class'] ) && in_array( $_POST['module_class'], array( 'Signup', 'Contact_Form' ) ) ) {
+		$module_class = sanitize_text_field( $_POST['module_class'] );
+	} else {
+		$module_class = 'Signup';
+	}
+
+	$is_BB           = isset( $_POST['et_bb'] );
+	$is_spam_account = isset( $_POST['is_spam_account'] );
 
 	if ( empty( $provider_slug ) || empty( $account_name ) ) {
 		et_core_die();
@@ -2231,17 +2242,23 @@ function et_builder_email_add_account() {
 
 	unset( $_POST[ $name_key ] );
 
-	$fields = et_builder_email_get_fields_from_post_data( $provider_slug );
+	$fields = et_builder_email_get_fields_from_post_data( $provider_slug, $is_spam_account );
 
 	if ( false === $fields  ) {
 		et_core_die();
 	}
 
-	$result = et_core_api_email_fetch_lists( $provider_slug, $account_name, $fields );
-	$_      = ET_Core_Data_Utils::instance();
+	if ( $is_spam_account ) {
+		$result = et_core_api_spam_add_account( $provider_slug, $account_name, $fields );
+
+	} else {
+		$result = et_core_api_email_fetch_lists( $provider_slug, $account_name, $fields );
+	}
+
+	$_ = ET_Core_Data_Utils::instance();
 
 	// Get data in builder format
-	$list_data = et_builder_email_get_lists_field_data( $provider_slug, $is_BB );
+	$list_data = et_builder_email_get_lists_field_data( $provider_slug, $is_BB, $module_class );
 
 	if ( 'success' === $result ) {
 		$result = array(
@@ -2267,10 +2284,15 @@ endif;
 
 
 if ( ! function_exists( 'et_builder_email_get_fields_from_post_data' ) ):
-function et_builder_email_get_fields_from_post_data( $provider_slug ) {
+function et_builder_email_get_fields_from_post_data( $provider_slug, $is_spam_account = false ) {
 	et_core_security_check( 'manage_options', 'et_builder_email_add_account_nonce' );
 
-	$fields = ET_Core_API_Email_Providers::instance()->account_fields( $provider_slug );
+	if ( $is_spam_account ) {
+		$fields = ET_Core_API_Spam_Providers::instance()->account_fields( $provider_slug );
+	} else {
+		$fields = ET_Core_API_Email_Providers::instance()->account_fields( $provider_slug );
+	}
+
 	$result = array();
 	$protocol = is_ssl() ? 'https' : 'http';
 
@@ -2312,30 +2334,36 @@ if ( ! function_exists( 'et_builder_email_get_lists_field_data' ) ):
  *
  * @return array|string The data in the BB's format if `$is_BB` is `true`, the FB's format otherwise.
  */
-function et_builder_email_get_lists_field_data( $provider_slug, $is_BB = false ) {
-	$signup     = new ET_Builder_Module_Signup();
-	$fields     = $signup->get_fields();
+function et_builder_email_get_lists_field_data( $provider_slug, $is_BB = false, $module_class = 'Signup' ) {
+	$module     = 'ET_Builder_Module_' . $module_class;
+	$module     = new $module;
+	$fields     = $module->get_fields();
 	$field_name = $provider_slug . '_list';
 	$field      = $fields[ $field_name ];
 
 	if ( $is_BB ) {
 		$field['only_options'] = true;
 		$field['name']         = $field_name;
-		$field_data            = $signup->render_field( $field );
+		$field_data            = $module->render_field( $field );
 	} else {
-		$signup_field  = new ET_Builder_Module_Signup_Item;
-		$field_data    = array(
+		$field_data = array(
 			'accounts_list' => $field['options'],
-			'custom_fields' => $signup_field->get_fields(),
 		);
+
+		if ( 'Signup' === $module_class ) {
+			$signup_field                 = new ET_Builder_Module_Signup_Item;
+			$fields_data['custom_fields'] = $signup_field->get_fields();
+		}
 	}
 
-	// Make sure the BB updates its cached templates
 	et_pb_force_regenerate_templates();
+	et_fb_delete_builder_assets();
 
 	return $field_data;
 }
 endif;
+
+
 
 
 if ( ! function_exists( 'et_builder_email_get_lists' ) ):
@@ -2469,18 +2497,31 @@ function et_builder_email_remove_account() {
 
 	$provider_slug = sanitize_text_field( $_POST['et_provider'] );
 	$account_name  = sanitize_text_field( $_POST['et_account'] );
-	$is_BB         = isset( $_POST['et_bb'] );
+
+	if ( isset( $_POST['module_class'] ) && in_array( $_POST['module_class'], array( 'Signup', 'Contact_Form' ) ) ) {
+		$module_class = sanitize_text_field( $_POST['module_class'] );
+	} else {
+		$module_class = 'Signup';
+	}
+
+	$is_BB           = isset( $_POST['et_bb'] );
+	$is_spam_account = isset( $_POST['is_spam_account'] );
 
 	if ( empty( $provider_slug ) || empty( $account_name ) ) {
 		et_core_die();
 	}
 
-	et_core_api_email_remove_account( $provider_slug, $account_name );
+	if ( $is_spam_account ) {
+		et_core_api_spam_remove_account( $provider_slug, $account_name );
+
+	} else {
+		et_core_api_email_remove_account( $provider_slug, $account_name );
+	}
 
 	$_ = ET_Core_Data_Utils::instance();
 
 	// Get data in builder format
-	$list_data = et_builder_email_get_lists_field_data( $provider_slug, $is_BB );
+	$list_data = et_builder_email_get_lists_field_data( $provider_slug, $is_BB, $module_class );
 
 	$result = array(
 		'error'                    => false,
@@ -2505,8 +2546,8 @@ function et_pb_submit_subscribe_form() {
 	$providers = ET_Core_API_Email_Providers::instance();
 	$utils     = ET_Core_Data_Utils::instance();
 
-	$provider_slug = sanitize_text_field( $utils->array_get( $_POST, 'et_provider' ) );
-	$account_name  = sanitize_text_field( $utils->array_get( $_POST, 'et_account' ) );
+	$provider_slug = $utils->array_get_sanitized( $_POST, 'et_provider' );
+	$account_name  = $utils->array_get_sanitized( $_POST, 'et_account' );
 	$custom_fields = $utils->array_get( $_POST, 'et_custom_fields', array() );
 
 	if ( ! $provider = $providers->get( $provider_slug, $account_name, 'builder' ) ) {
@@ -2514,11 +2555,11 @@ function et_pb_submit_subscribe_form() {
 	}
 
 	$args = array(
-		'list_id'       => sanitize_text_field( $utils->array_get( $_POST, 'et_list_id' ) ),
-		'email'         => sanitize_text_field( $utils->array_get( $_POST, 'et_email' ) ),
-		'name'          => sanitize_text_field( $utils->array_get( $_POST, 'et_firstname' ) ),
-		'last_name'     => sanitize_text_field( $utils->array_get( $_POST, 'et_lastname' ) ),
-		'ip_address'    => sanitize_text_field( $utils->array_get( $_POST, 'et_ip_address' ) ),
+		'list_id'       => $utils->array_get_sanitized( $_POST, 'et_list_id' ),
+		'email'         => $utils->array_get_sanitized( $_POST, 'et_email' ),
+		'name'          => $utils->array_get_sanitized( $_POST, 'et_firstname' ),
+		'last_name'     => $utils->array_get_sanitized( $_POST, 'et_lastname' ),
+		'ip_address'    => $utils->array_get_sanitized( $_POST, 'et_ip_address' ),
 		'custom_fields' => $utils->sanitize_text_fields( $custom_fields ),
 	);
 
@@ -2528,6 +2569,12 @@ function et_pb_submit_subscribe_form() {
 
 	if ( '' === (string) $args['list_id'] ) {
 		et_core_die( esc_html__( 'Configuration Error: No list has been selected for this form.', 'et_builder' ) );
+	}
+
+	$signup = ET_Builder_Element::get_module( 'et_pb_signup' );
+
+	if ( $signup && $signup->is_spam_submission() ) {
+		et_core_die( esc_html__( 'You must be a human to submit this form.', 'et_builder' ) );
 	}
 
 	et_builder_email_maybe_migrate_accounts();
@@ -5563,7 +5610,7 @@ function et_builder_maybe_wrap_css_selector( $selector, $suffix = '', $clone = t
 	$post_id = ET_Builder_Element::get_theme_builder_layout_id();
 
 	if ( ! isset( $should_wrap_selectors[ $post_id ] ) ) {
-		$should_wrap_selectors[ $post_id ] = et_builder_is_custom_post_type_archive() || ( et_pb_is_pagebuilder_used( $post_id ) && ( et_is_builder_plugin_active() || et_builder_post_is_of_custom_post_type( $post_id ) || et_theme_builder_is_layout_post_type( get_post_type( $post_id ) ) ) );
+		$should_wrap_selectors[ $post_id ] = et_is_builder_plugin_active() || et_builder_is_custom_post_type_archive() || ( et_pb_is_pagebuilder_used( $post_id ) && ( et_builder_post_is_of_custom_post_type( $post_id ) || et_theme_builder_is_layout_post_type( get_post_type( $post_id ) ) ) );
 	}
 
 	if ( is_bool( $suffix ) ) {
@@ -5640,7 +5687,7 @@ function et_builder_maybe_wrap_css_selectors( $selector, $clone = true ) {
 			}
 		}
 
-		$should_wrap_selectors[ $post_id ] = et_builder_is_custom_post_type_archive() || ( et_pb_is_pagebuilder_used( $wrap_post_id ) && ( et_is_builder_plugin_active() || et_builder_post_is_of_custom_post_type( $wrap_post_id ) ) );
+		$should_wrap_selectors[ $post_id ] = et_is_builder_plugin_active() || et_builder_is_custom_post_type_archive() || ( et_pb_is_pagebuilder_used( $wrap_post_id ) && et_builder_post_is_of_custom_post_type( $wrap_post_id ) );
 	}
 
 	if ( ! $should_wrap_selectors[ $post_id ] ) {

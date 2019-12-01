@@ -925,6 +925,55 @@ function et_builder_wc_add_inner_content_class( $classes ) {
 }
 
 /**
+ * Add WooCommerce class names on Divi Shop Page (not WooCommerce Shop).
+ *
+ * @since 4.0.7
+ *
+ * @param array $classes Array of Classes.
+ *
+ * @return array
+ */
+function et_builder_wc_add_outer_content_class( $classes ) {
+	$body_classes = get_body_class();
+
+	// Add Class only to WooCommerce Shop page if built using Divi (i.e. Divi Shop page).
+	if ( ! ( function_exists( 'is_shop' ) && is_shop() ) ) {
+		return $classes;
+	}
+
+	// Add Class only when the WooCommerce Shop page is built using Divi.
+	if ( ! et_builder_wc_is_non_product_post_type() ) {
+		return $classes;
+	}
+
+	// Precautionary check: $body_classes should always be an array.
+	if ( ! is_array( $body_classes ) ) {
+		return $classes;
+	}
+
+	// Add Class only when the <body> tag does not contain them.
+	$woocommerce_classes = array( 'woocommerce', 'woocommerce-page' );
+	$common_classes      = array_intersect( $body_classes, array(
+		'woocommerce',
+		'woocommerce-page',
+	) );
+	if ( is_array( $common_classes )
+		 && count( $woocommerce_classes ) === count( $common_classes ) ) {
+		return $classes;
+	}
+
+	// Precautionary check: $classes should always be an array.
+	if ( ! is_array( $classes ) ) {
+		return $classes;
+	}
+
+	$classes[] = 'woocommerce';
+	$classes[] = 'woocommerce-page';
+
+	return $classes;
+}
+
+/**
  * Sets the Product page layout post meta on two occurrences.
  *
  * They are 1) On WP Admin Publish/Update post 2) On VB Save.
@@ -1005,6 +1054,8 @@ function et_builder_wc_init() {
 	// Add WooCommerce class names on non-`product` CPT which uses builder
 	add_filter( 'body_class', 'et_builder_wc_add_body_class' );
 	add_filter( 'et_builder_inner_content_class', 'et_builder_wc_add_inner_content_class' );
+	add_filter( 'et_builder_outer_content_class', 'et_builder_wc_add_outer_content_class' );
+
 
 	// Load WooCommerce related scripts
 	add_action( 'wp_enqueue_scripts', 'et_builder_wc_load_scripts', 15 );

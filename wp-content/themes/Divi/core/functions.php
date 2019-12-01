@@ -352,7 +352,11 @@ endif;
 
 if ( ! function_exists( 'et_core_is_fb_enabled' ) ):
 function et_core_is_fb_enabled() {
-	return function_exists( 'et_fb_is_enabled' ) && et_fb_is_enabled();
+	if ( function_exists( 'et_fb_is_enabled' ) ) {
+		return et_fb_is_enabled();
+	}
+
+	return isset( $_GET['et_fb'] ) && current_user_can( 'edit-posts' );
 }
 endif;
 
@@ -1267,9 +1271,16 @@ function et_get_image_srcset_sizes( $img_src ) {
 		return false;
 	}
 
+	$srcset = wp_get_attachment_image_srcset( $attachment_id, $image_size );
+	$sizes  = wp_get_attachment_image_sizes( $attachment_id, $image_size );
+
+	if ( ! $srcset || ! $sizes ) {
+		return false;
+	}
+
 	$data = array(
-		'srcset' => wp_get_attachment_image_srcset( $attachment_id, $image_size ),
-		'sizes'  => wp_get_attachment_image_sizes( $attachment_id, $image_size ),
+		'srcset' => $srcset,
+		'sizes'  => $sizes,
 	);
 
 	$cache[ $cache_key ] = $data;

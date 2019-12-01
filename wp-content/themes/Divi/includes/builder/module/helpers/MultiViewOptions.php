@@ -1861,22 +1861,14 @@ class ET_Builder_Module_Helper_MultiViewOptions {
 					continue;
 				}
 
-				$attachment_srcset_sizes = et_get_image_srcset_sizes( $attrs['src'] );
+				$srcset_sizes = et_get_image_srcset_sizes( $attrs['src'] );
 
-				if ( isset( $attachment_srcset_sizes['srcset'] ) ) {
-					$data['attrs'][ $mode ]['srcset'] = $attachment_srcset_sizes['srcset'];
-				}
-
-				if ( isset( $attachment_srcset_sizes['sizes'] ) ) {
-					$data['attrs'][ $mode ]['sizes'] = $attachment_srcset_sizes['sizes'];
-				}
-
-				if ( ! isset( $data['attrs'][ $mode ]['srcset'] ) || ! $data['attrs'][ $mode ]['srcset'] ) {
-					$data['attrs'][ $mode ]['srcset'] = '';
-				}
-
-				if ( ! isset( $data['attrs'][ $mode ]['sizes'] ) || ! $data['attrs'][ $mode ]['sizes'] ) {
-					$data['attrs'][ $mode ]['sizes'] = '';
+				if ( isset( $srcset_sizes['srcset'], $srcset_sizes['sizes'] ) && $srcset_sizes['srcset'] && $srcset_sizes['sizes'] ) {
+					$data['attrs'][ $mode ]['srcset'] = $srcset_sizes['srcset'];
+					$data['attrs'][ $mode ]['sizes']  = $srcset_sizes['sizes'];
+				} else {
+					unset( $data['attrs'][ $mode ]['srcset'] );
+					unset( $data['attrs'][ $mode ]['sizes'] );
 				}
 			}
 		}

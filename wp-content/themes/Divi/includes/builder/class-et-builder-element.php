@@ -20,6 +20,7 @@ require_once 'module/helpers/Alignment.php';
 require_once 'module/helpers/TransitionOptions.php';
 require_once 'module/helpers/OptionTemplate.php';
 require_once 'module/helpers/Font.php';
+require_once 'module/helpers/BackgroundLayout.php';
 require_once 'module/field/Factory.php';
 
 if ( et_is_woocommerce_plugin_active() ) {
@@ -633,10 +634,17 @@ class ET_Builder_Element {
 				$message .= " Use {$class}::{$new_method}() instead.";
 				$value    = call_user_func_array( array( $this, $new_method ), $args );
 
+			} else if ( $old_method_exists && function_exists( $new_method ) ) {
+				// New method is a function
+				$message .= " Use {$new_method}() instead.";
+				$value   = call_user_func_array( $new_method, $args );
+
 			} else if ( $old_method_exists ) {
 				// Ensure that our current caller is not the same as the method we're about to call.
 				// as that would cause an infinite recursion situation. It happens when a child class
 				// method which has been deprecated calls itself on the parent class (using parent::)
+				// This also happens when we use $this->__call() to call a deprecated method from its
+				// replacement method so that a deprecation notice will be output.
 				$trace   = debug_backtrace();
 				$callers = array(
 					self::$_->array_get( $trace, '1.function' ),
@@ -644,8 +652,6 @@ class ET_Builder_Element {
 				);
 
 				if ( ! in_array( $name, $callers ) ) {
-					// We've used $this->__call() to call a deprecated method from its replacement
-					// method so that a deprecation notice will be output.
 					$message .= " Use {$class}::{$new_method}() instead.";
 					$value   = call_user_func_array( array( $this, $name ), $args );
 				}
@@ -787,7 +793,7 @@ class ET_Builder_Element {
 	 * each post - in this case we must NOT override the
 	 * current post so the loop works as expected.
 	 *
-	 * @since ??
+	 * @since 4.0.6
 	 *
 	 * @return boolean
 	 */
@@ -801,7 +807,7 @@ class ET_Builder_Element {
 	 * Retrieve the main query post id.
 	 * Accounts for third party interference with the current post.
 	 *
-	 * @since ??
+	 * @since 4.0.6
 	 *
 	 * @return integer|boolean
 	 */
@@ -897,7 +903,6 @@ class ET_Builder_Element {
 			$post_id = et_core_page_resource_get_the_ID();
 		}
 
-		$post_type        = get_post_type( $post_id );
 		$is_preview       = is_preview() || is_et_pb_preview();
 		$forced_in_footer = $post_id && et_builder_setting_is_on( 'et_pb_css_in_footer', $post_id );
 		$forced_inline    = ! $post_id || $is_preview || $forced_in_footer || et_builder_setting_is_off( 'et_pb_static_css_file', $post_id ) || et_core_is_safe_mode_active();
@@ -906,23 +911,7 @@ class ET_Builder_Element {
 		$resource_owner = $unified_styles ? 'core' : 'builder';
 		$resource_slug  = $unified_styles ? 'unified' : 'module-design';
 		$resource_slug .= $unified_styles && et_builder_post_is_of_custom_post_type( $post_id ) ? '-cpt' : '';
-
-		if ( is_singular() ) {
-			if ( et_theme_builder_is_layout_post_type( $post_type ) ) {
-				$resource_slug .= '-tb-for-' . ET_Post_Stack::get_main_post_id();
-			} else {
-				$layout_types = et_theme_builder_get_layout_post_types();
-				$layouts      = et_theme_builder_get_template_layouts();
-
-				foreach ( $layout_types as $type ) {
-					if ( ! isset( $layouts[ $type ] ) || ! $layouts[ $type ]['override'] ) {
-						continue;
-					}
-
-					$resource_slug .= '-tb-' . $layouts[ $type ]['id'];
-				}
-			}
-		}
+		$resource_slug  = et_theme_builder_decorate_page_resource_slug( $post_id, $resource_slug );
 
 		// If the post is password protected and a password has not been provided yet,
 		// no content (including any custom style) will be printed.
@@ -1377,24 +1366,6 @@ class ET_Builder_Element {
 		$this->_set_fields_unprocessed( $fields_unprocessed );
 	}
 
-	/**
-	 * Determine if current request is VB Data Request by checking $_POST['action'] value
-	 *
-	 * @return bool
-	 */
-	protected function is_loading_vb_data() {
-		return isset( $_POST['action'] ) && in_array( $_POST['action'], array( 'et_fb_retrieve_builder_data', 'et_fb_update_builder_assets' ) ); // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
-	}
-
-	/**
-	 * Determine if current request is BB Data Request by checking $_POST['action'] value
-	 *
-	 * @return bool
-	 */
-	protected function is_loading_bb_data() {
-		return isset( $_POST['action'] ) && in_array( $_POST['action'], array( 'et_pb_get_backbone_templates') ); // phpcs:ignore WordPress.Security.NonceVerification.NoNonceVerification
-	}
-
 	private function register_post_type( $post_type ) {
 		$this->post_types[] = $post_type;
 		self::$parent_modules[ $post_type ] = array();
@@ -1447,7 +1418,11 @@ class ET_Builder_Element {
 
 			// URLs are weird since they can allow non-ascii characters so we escape those separately.
 			if ( in_array( $attribute_key, array( 'url', 'button_link', 'button_url' ), true ) ) {
-				$shortcode_attributes[ $attribute_key ] = esc_url_raw( $processed_attr_value );
+				$shortcode_attributes[ $attribute_key ] = esc_url_raw( str_replace(
+					array( '%91', '%93' ),
+					array( '&#91;', '&#93;' ),
+					$processed_attr_value
+				) );
 			} else {
 				$shortcode_attributes[ $attribute_key ] = str_replace( array( '%22', '%92', '%91', '%93', '%5c' ), array( '"', '\\', '&#91;', '&#93;', '\\' ),
 				$processed_attr_value );
@@ -1905,9 +1880,9 @@ class ET_Builder_Element {
 	 *
 	 * @since 3.17.2
 	 *
-	 * @param  array  $original_attrs List of attributes
+	 * @param  array $original_attrs List of attributes
 	 *
-	 * @return array                  Processed attributes with resolved dynamic values.
+	 * @return array Processed attributes with resolved dynamic values.
 	 */
 	function process_dynamic_attrs( $original_attrs ) {
 		global $et_fb_processing_shortcode_object;
@@ -2321,13 +2296,17 @@ class ET_Builder_Element {
 				// suffix for the animation style.
 				if ( et_pb_responsive_options()->is_responsive_enabled( $this->props, 'animation_direction' ) ) {
 					// Tablet animation style.
-					if ( ! empty( $animation_direction_tablet ) && in_array( $animation_direction_tablet, $directions_list ) ) {
-						$animation_data['style_tablet'] = $animation_style_tablet . ucfirst( $animation_direction_tablet );
+					if ( ! empty( $animation_direction_tablet ) ) {
+						$animation_style_tablet_suffix  = in_array( $animation_direction_tablet, $directions_list ) ? ucfirst( $animation_direction_tablet ) : '';
+						$animation_data['style_tablet'] = $animation_style_tablet . $animation_style_tablet_suffix;
 					}
 
 					// Phone animation style.
-					if ( ! empty( $animation_direction_phone ) && in_array( $animation_direction_phone, $directions_list ) ) {
-						$animation_data['style_phone'] = $animation_style_phone . ucfirst( $animation_direction_phone );
+					if ( ! empty( $animation_direction_phone ) ) {
+						$animation_style_phone_suffix  = in_array( $animation_direction_phone, $directions_list ) ? ucfirst( $animation_direction_phone ) : '';
+						$animation_data['style_phone'] = $animation_style_phone . $animation_style_phone_suffix;
+					} else if ( ! empty( $animation_data['style_tablet'] ) ) {
+						$animation_data['style_phone'] = $animation_data['style_tablet'];
 					}
 				}
 
@@ -3394,8 +3373,7 @@ class ET_Builder_Element {
 				$advanced_font_options["{$option_name}_ul"] = array_merge( $block_elements_default_settings, array(
 					'label'       => esc_html__( 'Unordered List', 'et_builder' ),
 					'css'         => array(
-						'main'        => $ul_element_selector,
-						'line_height' => $ul_li_element_selector,
+						'main' => $ul_li_element_selector,
 					),
 					'sub_toggle'  => 'ul',
 				) );
@@ -3406,8 +3384,7 @@ class ET_Builder_Element {
 				$advanced_font_options["{$option_name}_ol"] = array_merge( $block_elements_default_settings, array(
 					'label'       => esc_html__( 'Ordered List', 'et_builder' ),
 					'css'         => array(
-						'main'        => $ol_element_selector,
-						'line_height' => $ol_li_element_selector,
+						'main' => $ol_li_element_selector,
 					),
 					'sub_toggle'  => 'ol',
 				) );
@@ -7175,25 +7152,22 @@ class ET_Builder_Element {
 
 			$disable_label = isset( $slug_labels[ $this->slug ] ) ? $slug_labels[ $this->slug ] : esc_html__( 'module', 'et_builder' );
 
-			// Add fields based on Role Capability
-			if ( et_pb_is_allowed( 'disable_module' ) ) {
-				$disabled_on_fields = array(
-					'disabled_on' => array(
-						'label'           => esc_html__( 'Disable on', 'et_builder' ),
-						'type'            => 'multiple_checkboxes',
-						'options'         => array(
-							'phone'   => esc_html__( 'Phone', 'et_builder' ),
-							'tablet'  => esc_html__( 'Tablet', 'et_builder' ),
-							'desktop' => esc_html__( 'Desktop', 'et_builder' ),
-						),
-						'additional_att'  => 'disable_on',
-						'option_category' => 'configuration',
-						'description'     => sprintf( esc_html__( 'This will disable the %1$s on selected devices', 'et_builder' ), $disable_label ),
-						'tab_slug'        => 'custom_css',
-						'toggle_slug'     => 'visibility',
+			$disabled_on_fields = array(
+				'disabled_on' => array(
+					'label'           => esc_html__( 'Disable on', 'et_builder' ),
+					'type'            => 'multiple_checkboxes',
+					'options'         => array(
+						'phone'   => esc_html__( 'Phone', 'et_builder' ),
+						'tablet'  => esc_html__( 'Tablet', 'et_builder' ),
+						'desktop' => esc_html__( 'Desktop', 'et_builder' ),
 					),
-				);
-			}
+					'additional_att'  => 'disable_on',
+					'option_category' => 'configuration',
+					'description'     => sprintf( esc_html__( 'This will disable the %1$s on selected devices', 'et_builder' ), $disable_label ),
+					'tab_slug'        => 'custom_css',
+					'toggle_slug'     => 'visibility',
+				),
+			);
 
 			$common_general_fields = array(
 				'admin_label'  => array(
@@ -7367,6 +7341,12 @@ class ET_Builder_Element {
 		if ( is_a( $post, 'WP_POST' ) && ( is_admin() || ! isset( $et_builder_post_type ) ) ) {
 			return $post->post_type;
 		} else {
+			$layout_type = self::get_theme_builder_layout_type();
+
+			if ( $layout_type ) {
+				return $layout_type;
+			}
+
 			return isset( $et_builder_post_type ) ? $et_builder_post_type : 'post';
 		}
 	}
@@ -10506,11 +10486,11 @@ class ET_Builder_Element {
 		$slugs = array_merge( $slugs, $mobile_options_last_edited_slugs );
 
 		foreach ( $this->advanced_fields['fonts'] as $option_name => $option_settings ) {
-			$style = '';
-			$hover_style = '';
+			$style             = '';
+			$hover_style       = '';
 			$important_options = array();
-			$is_important_set = isset( $option_settings['css']['important'] );
-			$is_placeholder = isset( $option_settings['css']['placeholder'] );
+			$is_important_set  = isset( $option_settings['css']['important'] );
+			$is_placeholder    = isset( $option_settings['css']['placeholder'] );
 
 			$use_global_important = $is_important_set && 'all' === $option_settings['css']['important'];
 
@@ -10635,7 +10615,8 @@ class ET_Builder_Element {
 				$important = ' !important';
 
 				if ( isset( $option_settings['css']['color'] ) ) {
-					$sel = et_pb_hover_options()->add_hover_to_order_class( $option_settings['css']['color'] );
+					$sel = et_pb_hover_options()->add_hover_to_selectors( $option_settings['css']['color'] );
+
 					self::set_style( $function_name, array(
 						'selector'    => self::$_->array_get( $option_settings, 'css.color_hover', $sel ),
 						'declaration' => sprintf(
@@ -10712,7 +10693,7 @@ class ET_Builder_Element {
 					if ( et_builder_is_hover_enabled( $letter_spacing_option_name, $this->props ) ) {
 						if ( $default_letter_spacing !== $letter_spacing_hover ) {
 							if ( isset( $option_settings['css']['color'] ) ) {
-								$sel = et_pb_hover_options()->add_hover_to_order_class( $option_settings['css']['letter_spacing'] );
+								$sel = et_pb_hover_options()->add_hover_to_selectors( $option_settings['css']['letter_spacing'] );
 								self::set_style( $function_name, array(
 									'selector'    => self::$_->array_get( $option_settings, 'css.letter_spacing_hover', $sel ),
 									'declaration' => sprintf(
@@ -10776,7 +10757,7 @@ class ET_Builder_Element {
 				if ( isset( $option_settings['css']['line_height'] ) ) {
 					if ( et_builder_is_hover_enabled( $line_height_option_name, $this->props ) ) {
 						if ( isset( $option_settings['css']['color'] ) ) {
-							$sel = et_pb_hover_options()->add_hover_to_order_class( $option_settings['css']['line_height'] );
+							$sel = et_pb_hover_options()->add_hover_to_selectors( $option_settings['css']['line_height'] );
 							self::set_style( $function_name, array(
 								'selector'    => self::$_->array_get( $option_settings, 'css.line_height_hover', $sel ),
 								'declaration' => sprintf(
@@ -10793,7 +10774,10 @@ class ET_Builder_Element {
 
 			$text_align_option_name = "{$option_name}_{$slugs[5]}";
 
-			if ( isset( $font_options[ $text_align_option_name ] ) && '' !== $font_options[ $text_align_option_name ] ) {
+			// Ensure to not print text alignment if current font hide text alignment option.
+			$hide_text_align = self::$_->array_get( $option_settings, 'hide_text_align', false );
+
+			if ( isset( $font_options[ $text_align_option_name ] ) && '' !== $font_options[ $text_align_option_name ] && ! $hide_text_align ) {
 
 				$important = in_array( 'text-align', $important_options ) || $use_global_important ? ' !important' : '';
 				$text_align = et_pb_get_alignment( $font_options[ $text_align_option_name ] );
@@ -10842,7 +10826,7 @@ class ET_Builder_Element {
 					if ( is_array( $css_element ) ) {
 						foreach( $css_element as $selector ) {
 							if ( $is_hover ) {
-								$selector = self::$_->array_get( $option_settings, 'css.hover', $this->add_hover_to_order_class( $selector, $is_hover ) );
+								$selector = self::$_->array_get( $option_settings, 'css.hover', $this->add_hover_to_selectors( $selector, $is_hover ) );
 							}
 
 							self::set_style( $function_name, array(
@@ -10853,7 +10837,7 @@ class ET_Builder_Element {
 						}
 					} else {
 						if ( $is_hover ) {
-							$css_element = self::$_->array_get( $option_settings, 'css.hover', $this->add_hover_to_order_class( $css_element, $is_hover ) );
+							$css_element = self::$_->array_get( $option_settings, 'css.hover', $this->add_hover_to_selectors( $css_element, $is_hover ) );
 						}
 
 						self::set_style( $function_name, array(
@@ -13841,12 +13825,14 @@ class ET_Builder_Element {
 			}
 
 			if ( et_pb_responsive_options()->is_responsive_enabled( $this->props, "custom_css_{$slug}" ) ) {
+				$responsive_values = et_pb_responsive_options()->get_property_values( $this->props, "custom_css_{$slug}" );
+
 				// Desktop mode custom CSS.
 				if ( '' !== $css ) {
 					self::set_style( $function_name, array(
 						'selector'    => $selector,
 						'declaration' => trim( $css ),
-						'media_query' => ET_Builder_Element::get_media_query( 'min_width_981' ),
+						'media_query' => empty( $responsive_values['tablet'] ) ? null : ET_Builder_Element::get_media_query( 'min_width_981' ),
 					) );
 				}
 
@@ -13856,7 +13842,7 @@ class ET_Builder_Element {
 					self::set_style( $function_name, array(
 						'selector'    => $selector,
 						'declaration' => trim( $tablet_css ),
-						'media_query' => ET_Builder_Element::get_media_query( 'max_width_980' ),
+						'media_query' => empty( $responsive_values['phone'] ) ? ET_Builder_Element::get_media_query( 'max_width_980' ) : ET_Builder_Element::get_media_query( '768_980' ),
 					) );
 				}
 
@@ -13996,7 +13982,7 @@ class ET_Builder_Element {
 			$prev_declaration = '';
 			foreach( et_pb_responsive_options()->get_modes() as $device ) {
 				// Add device argument.
-				$declaration_args['device'] = $device;
+				$device_declaration_args = array_merge( $declaration_args, array( 'device' => $device ) );
 
 				// Get box-shadow styles.
 				if ( ( $inset && 'inset' === $overlay ) || 'always' === $overlay || $has_video_bg ) {
@@ -14004,13 +13990,13 @@ class ET_Builder_Element {
 						$function_name,
 						$selector,
 						$this->props,
-						$declaration_args
+						$device_declaration_args
 					);
 				} else {
 					$box_shadow_style = $box_shadow->get_style(
 						$selector,
 						$this->props,
-						$declaration_args
+						$device_declaration_args
 					);
 				}
 
@@ -16082,8 +16068,10 @@ class ET_Builder_Element {
 			return $additional_classes;
 		}
 
-		$hover_suffix = et_pb_hover_options()->get_suffix();
-		$field_suffixes = array( '', 'tablet', 'phone', $hover_suffix );
+		$hover_suffix       = et_pb_hover_options()->get_suffix();
+		$field_suffixes     = array( '', 'tablet', 'phone', $hover_suffix );
+		$filters_default    = array();
+		$filters_default_fb = array();
 
 		foreach ( $field_suffixes as $suffix ) {
 			if ( $hover_suffix === $suffix ) {
@@ -16107,7 +16095,7 @@ class ET_Builder_Element {
 
 			// Some web browser glitches with filters and blend modes can be improved this way
 			// see https://bugs.chromium.org/p/chromium/issues/detail?id=157218 for more info
-			$backfaceVisibility = 'backface-visibility:hidden;';
+			$backfaceVisibility      = 'backface-visibility:hidden;';
 			$backfaceVisibilityAdded = array();
 
 			$additional_classes = '';
@@ -16186,8 +16174,8 @@ class ET_Builder_Element {
 				continue;
 			}
 
-			$css_value = '';
-			$css_value_fb_hover = '';
+			$css_value          = array();
+			$css_value_fb_hover = array();
 			foreach ( $filter as $label => $value ) {
 				// Check against our default settings, and only append the rule if it differs
 				// (only for default state since hover and mobile might be equal to default,
@@ -16204,16 +16192,27 @@ class ET_Builder_Element {
 				$value = et_sanitize_input_unit( $value, false, 'deg' );
 				$label_css_format = str_replace( '_', '-', $label );
 				// Construct string of all CSS Filter values
-				$css_value .= esc_html( " ${label_css_format}(${value})" );
+				$css_value[$label] = esc_html( "${label_css_format}(${value})" );
 				// Construct Visual Builder hover rules
 				if ( ! in_array( $label, array( 'opacity', 'blur' ) ) ) {
 					// Skip those, because they mess with VB controls
-					$css_value_fb_hover .= esc_html( " ${label_css_format}(${value})" );
+					$css_value_fb_hover[$label] = esc_html( "${label_css_format}(${value})" );
 				}
 			}
 
 			// Append our new CSS rules
-			if ( trim( $css_value ) ) {
+			if ( $css_value ) {
+				// Store the default (non-hover) filters
+				if ( '' === $suffix ) {
+					$filters_default = $css_value;
+				}
+
+				// Merge the hover filters onto the default filters so that filters that
+				// have no hover option set are not removed from the CSS declaration
+				if ( $hover_suffix === $suffix ) {
+					$css_value = array_merge( $filters_default, $css_value );
+				}
+
 				foreach ( $selectors_prepared as $selector ) {
 					$backfaceVisibilityDeclaration = in_array( $selector, $backfaceVisibilityAdded ) ? '' : $backfaceVisibility;
 
@@ -16226,7 +16225,7 @@ class ET_Builder_Element {
 						'selector'    => $selector,
 						'declaration' => sprintf(
 							'filter: %1$s;',
-							$css_value
+							implode( ' ', $css_value )
 						) . $backfaceVisibilityDeclaration,
 					), $media_query ) );
 				}
@@ -16234,7 +16233,18 @@ class ET_Builder_Element {
 			}
 
 			// If we have VB hover-friendly CSS rules, we'll gather those and append them here
-			if ( trim( $css_value_fb_hover ) ) {
+			if ( $css_value_fb_hover ) {
+				// Store the default (non-hover) filters
+				if ( '' === $suffix ) {
+					$filters_default_fb = $css_value_fb_hover;
+				}
+
+				// Merge the hover filters onto the default filters so that filters that
+				// have no hover option set are not removed from the CSS declaration
+				if ( $hover_suffix === $suffix ) {
+					$css_value_fb_hover = array_merge( $filters_default_fb, $css_value_fb_hover );
+				}
+
 				foreach ( $selectors_prepared as $selector ) {
 					$selector_hover = str_replace(
 						'%%order_class%%',
@@ -16245,7 +16255,7 @@ class ET_Builder_Element {
 						'selector'    => $selector_hover,
 						'declaration' => esc_html( sprintf(
 							'filter: %1$s;',
-							$css_value_fb_hover
+							implode( ' ', $css_value_fb_hover )
 						) ),
 					) );
 				}
@@ -16591,80 +16601,8 @@ class ET_Builder_Element {
 		);
 	}
 
-	/* =================================================================
-	 * ------>>> Class-level (static) deprecations begin here! <<<------
-	 * ================================================================= */
-
-	/**
-	 * @deprecated See {@see self::get_parent_slugs_regex()}
-	 */
-	public static function get_parent_shortcodes( $post_type ) {
-		$method      = __METHOD__;
-		$replacement = __CLASS__ . '::get_parent_slugs_regex()';
-
-		et_error( "You're Doing It Wrong! {$method} is deprecated. Use {$replacement} instead." );
-
-		return self::get_parent_slugs_regex( $post_type );
-	}
-
-	/**
-	 * @deprecated See {@see self::get_child_slugs_regex()}
-	 */
-	public static function get_child_shortcodes( $post_type ) {
-		$method      = __METHOD__;
-		$replacement = __CLASS__ . '::get_child_slugs_regex()';
-
-		et_error( "You're Doing It Wrong! {$method} is deprecated. Use {$replacement} instead." );
-
-		return self::get_child_slugs_regex( $post_type );
-	}
-
-	/**
-	 * Deprecated.
-	 *
-	 * @deprecated
-	 *
-	 * @param string $post_type
-	 * @param string $mode
-	 *
-	 * @return  array
-	 */
-	public static function get_defaults( $post_type = '', $mode = 'all' ) {
-		et_error( "You're Doing It Wrong! " . __METHOD__ . ' is deprecated and should not be used.' );
-
-		return array();
-	}
-
-	/**
-	 * Deprecated.
-	 *
-	 * @deprecated
-	 *
-	 * @param string $post_type
-	 * @param string $mode
-	 *
-	 * @return array
-	 */
-	public static function get_fields_defaults( $post_type = '', $mode = 'all' ) {
-		et_error( "You're Doing It Wrong! " . __METHOD__ . ' is deprecated and should not be used.' );
-
-		return array();
-	}
-
-	/**
-	 * @deprecated
-	 */
-	public static function get_slugs_with_children( $post_type ) {
-		$parent_modules = self::get_parent_modules( $post_type );
-		$slugs = array();
-
-		foreach ( $parent_modules as $module ) {
-			if ( ! empty( $module->child_slug ) ) {
-				$slugs[] = sprintf( '"%1$s":"%2$s"', esc_js( $module->slug ), esc_js( $module->child_slug ) );
-			}
-		}
-
-		return '{' . implode( ',', $slugs ) . '}';
+	public static function is_saving_cache() {
+		return apply_filters( 'et_builder_modules_is_saving_cache', false );
 	}
 
 	/**
@@ -17238,6 +17176,114 @@ class ET_Builder_Element {
 
 		echo et_core_intentionally_unescaped( $html, 'html' );
 	}
+
+	/* ================================================================================================================
+	 * -------------------------->>> Class-level (static) deprecations begin here! <<<---------------------------------
+	 * ================================================================================================================ */
+
+	/**
+	 * @deprecated See {@see self::get_parent_slugs_regex()}
+	 */
+	public static function get_parent_shortcodes( $post_type ) {
+		$method      = __METHOD__;
+		$replacement = __CLASS__ . '::get_parent_slugs_regex()';
+
+		et_error( "You're Doing It Wrong! {$method} is deprecated. Use {$replacement} instead." );
+
+		return self::get_parent_slugs_regex( $post_type );
+	}
+
+	/**
+	 * @deprecated See {@see self::get_child_slugs_regex()}
+	 */
+	public static function get_child_shortcodes( $post_type ) {
+		$method      = __METHOD__;
+		$replacement = __CLASS__ . '::get_child_slugs_regex()';
+
+		et_error( "You're Doing It Wrong! {$method} is deprecated. Use {$replacement} instead." );
+
+		return self::get_child_slugs_regex( $post_type );
+	}
+
+	/**
+	 * Deprecated.
+	 *
+	 * @deprecated
+	 *
+	 * @param string $post_type
+	 * @param string $mode
+	 *
+	 * @return  array
+	 */
+	public static function get_defaults( $post_type = '', $mode = 'all' ) {
+		et_error( "You're Doing It Wrong! " . __METHOD__ . ' is deprecated and should not be used.' );
+
+		return array();
+	}
+
+	/**
+	 * Deprecated.
+	 *
+	 * @deprecated
+	 *
+	 * @param string $post_type
+	 * @param string $mode
+	 *
+	 * @return array
+	 */
+	public static function get_fields_defaults( $post_type = '', $mode = 'all' ) {
+		et_error( "You're Doing It Wrong! " . __METHOD__ . ' is deprecated and should not be used.' );
+
+		return array();
+	}
+
+	/**
+	 * @deprecated
+	 */
+	public static function get_slugs_with_children( $post_type ) {
+		$parent_modules = self::get_parent_modules( $post_type );
+		$slugs = array();
+
+		foreach ( $parent_modules as $module ) {
+			if ( ! empty( $module->child_slug ) ) {
+				$slugs[] = sprintf( '"%1$s":"%2$s"', esc_js( $module->slug ), esc_js( $module->child_slug ) );
+			}
+		}
+
+		return '{' . implode( ',', $slugs ) . '}';
+	}
+
+	/* ================================================================================================================
+	 * ------------------------------->>> Non-static deprecations begin here! <<<--------------------------------------
+	 * ================================================================================================================ */
+
+	/**
+	 * Determine if current request is VB Data Request by checking $_POST['action'] value
+	 *
+	 * @deprecated {@see et_builder_is_loading_vb_data()}
+	 *
+	 * @since 4.0.7 Deprecated.
+	 *
+	 * @return bool
+	 */
+	protected function is_loading_vb_data() {
+		return et_builder_is_loading_data();
+	}
+
+	/**
+	 * Determine if current request is BB Data Request by checking $_POST['action'] value
+	 *
+	 * @deprecated {@see et_builder_is_loading_bb_data()}
+	 *
+	 * @since 4.0.7 Deprecated.
+	 *
+	 * @return bool
+	 */
+	protected function is_loading_bb_data() {
+		return et_builder_is_loading_data( 'bb' );
+	}
+
+	/* NOTE: Adding a new method? New methods should be placed BEFORE deprecated methods. */
 }
 
 do_action( 'et_pagebuilder_module_init' );

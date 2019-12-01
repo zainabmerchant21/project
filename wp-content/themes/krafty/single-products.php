@@ -1,10 +1,7 @@
-<?php
+<?php get_header();?>
 
-get_header();
-?>
+<?php echo do_shortcode('[et_pb_section global_module="inner"][/et_pb_section]'); ?>
 
-<div class="head">
-</div>
 <?php
 
 // $show_default_title = get_post_meta( get_the_ID(), '_et_pb_show_title', true );
@@ -49,18 +46,39 @@ $is_page_builder_used = et_pb_is_pagebuilder_used( get_the_ID() );
 						<div class="product_img">
 							<?php echo the_post_thumbnail(); ?>
 						</div>
+
 						<div class="product_content">
-							<h2><?php the_title(); ?> | Rs <?php echo get_field('price'); ?></h2>
-							<?php the_content(); ?>
-							<h3><span>Sku: </span><?php echo get_field('sku'); ?></h3>
-							<h3><span>Color: </span><?php echo get_field('color'); ?></h3>
-							<h3><span>Weight: </span><?php echo get_field('weight'); ?></h3>
-							<h3><span>Size: </span><?php echo get_field('size'); ?></h3>
-							<h3><span>Author: </span><?php echo get_field('author_name'); ?></h3>
+							<div class="product_inner">
+								<h2><?php the_title(); ?> </h2>
+								<h2>Rs <?php echo get_field('price'); ?></h2>
+								<?php the_content(); 
+								
+								// optional
+								// echo "You chose the following color(s): <br>";
+
+								// foreach ($name as $color){ 
+								// 	echo $color."<br />";
+								// }
+
+								?>
+								<h3><span>Sku: </span><?php echo get_field('sku'); ?></h3>
+								<h3><span>Color: </span><?php echo get_field('color'); ?></h3>
+								<h3><span>Weight: </span><?php echo get_field('weight'); ?></h3>
+								<h3><span>Size: </span>
+								<?php 
+								$field = get_field_object('size'); 
+								$sizes = get_field('size');  
+								foreach($sizes as $size){
+									echo  $size.", ";
+								} 
+								?></h3>
+								<h3><span>Author: </span><?php echo get_field('author_name'); ?></h3>
+						
+							</div>
 						</div>
 					</div>
 					<div class="product_form_wrapper">
-						<h1>ORDER FORM</h1>
+						<h1>Order Form</h1>
 						<?php echo do_shortcode('[contact-form-7 id="773" title="product form"]');?>
 					</div>
 					

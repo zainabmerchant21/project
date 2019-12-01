@@ -443,7 +443,7 @@ var isBuilder = 'object' === typeof window.ET_Builder;
 
 			if ($wooCommerceNotice.length > 0 && 'yes' !== $wooCommerceNotice.attr('data-position-set')) {
 				var wooNoticeMargin = main_header_fixed_height;
-				
+
 				if (0 === wooNoticeMargin && $main_header.attr('data-height-onload')) {
 					wooNoticeMargin = $main_header.attr('data-height-onload');
 				}
@@ -1170,7 +1170,14 @@ var isBuilder = 'object' === typeof window.ET_Builder;
 		});
 
 		var et_pb_window_side_nav_get_sections = function() {
-			return $('.et-l--post:first .et_pb_section:visible:not(.et_pb_section div)');
+			var $inPost   = $('.et-l--post .et_pb_section');
+			var $inTBBody = $('.et-l--body .et_pb_section').not('.et-l--post .et_pb_section');
+
+			if (0 === $inTBBody.length || $inPost.length > 1) {
+				return $inPost;
+			}
+
+			return $inTBBody;
 		};
 
 		window.et_pb_window_side_nav_scroll_init = function() {
@@ -1182,8 +1189,10 @@ var isBuilder = 'object' === typeof window.ET_Builder;
 
 			window.et_calculating_scroll_position = true;
 
-			var add_offset = $( 'body' ).hasClass( 'et_fixed_nav' ) ? 20 : -90;
-			var top_header_height = $( '#top-header' ).length > 0 ? parseInt( $( '#top-header' ).height() ) : 0;
+			var is_tb_layout_used  = $('.et-l--header').length || $('.et-l--body').length || ! $('#main-header').length;
+			var add_offset_default = is_tb_layout_used ? 0 : -90;
+			var add_offset         = $( 'body' ).hasClass( 'et_fixed_nav' ) ? 20 : add_offset_default;
+			var top_header_height  = $( '#top-header' ).length > 0 ? parseInt( $( '#top-header' ).height() ) : 0;
 			var main_header_height = $( '#main-header' ).length > 0 ? parseInt( $( '#main-header' ).height() ) : 0;
 			var side_offset;
 
@@ -1257,7 +1266,7 @@ var isBuilder = 'object' === typeof window.ET_Builder;
 					// that we have the same implementation for the frontend website and the Visual Builder.
 					var index = parseInt( $( this ).text() );
 					var $target = $sections.eq( index );
-					var top_section = $(this).text() == "0";
+					var top_section = $(this).text() == "0" && ! $('.et-l--body').length;
 
 					et_pb_smooth_scroll( $target, top_section, 800 );
 
