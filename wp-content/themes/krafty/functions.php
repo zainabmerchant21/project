@@ -93,46 +93,6 @@ function slick_slider( ){
 
 
 
-function catg ( $atts ){
-
-        $atts = shortcode_atts( array(
-            'id'=> '',
-        ), $atts );
-    
-        $args = array(
-            'post_type' => 'products',
-            'post_status' => 'publish',
-            'posts_per_page' => -1,
-            'order' => 'ASC',
-            'tax_query' => array(
-                array (
-                    'taxonomy' => 'product_categories',
-                    'field' => 'name',
-                    'terms' => $atts['name'],
-                )
-            ),
-        );
-        $string = '';
-    
-        $query = new WP_Query( $args );
-        //var_dump($query->have_posts());die('test');
-        if( $query->have_posts() ){
-            $string .= '<div class="gallery_wrapper">';
-            while( $query->have_posts() ){
-                $query->the_post();
-                $string .= '<div class="gallery_inner">';
-                
-                $string .= get_the_post_thumbnail();
-                $string.='</div>';
-            }
-            $string .= '</div>';
-    
-    }
-    wp_reset_postdata();
-    return $string;
-    }
-    add_shortcode('categories', 'catg');
-    
 ?>
 
 
