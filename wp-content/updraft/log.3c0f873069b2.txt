@@ -1,0 +1,361 @@
+0000.001 (0) Opened log file at time: Mon, 02 Dec 2019 07:37:12 +0000 on http://localhost/krafty
+0000.004 (0) UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.16.20 WP: 5.3 PHP: 7.1.30 (apache2handler, Windows NT DESKTOP-NC4AMQQ 10.0 build 17763 (Windows 10) AMD64) MySQL: 10.3.16-MariaDB WPLANG: en_US Server: Apache/2.4.39 (Win64) OpenSSL/1.0.2s PHP/7.1.30 safe_mode: 0 max_execution_time: 900 memory_limit: 256M (used: 54.6M | 56M) multisite: N openssl: OpenSSL 1.0.2r  26 Feb 2019 mcrypt: Y LANG:  ZipArchive::addFile: Y
+0000.006 (0) Free space on disk containing Updraft's temporary directory: 65953.9 MB
+0000.018 (0) Tasks: Backup files: 1 (schedule: every2hours) Backup DB:  (schedule: every2hours)
+0000.020 (0) Processed schedules. Combining jobs from identical schedules. Tasks now: Backup files: 1 Backup DB: 1
+0000.043 (0) Requesting semaphore lock (fd) (apparently via scheduler: last_scheduled_action_called_at=1575223441, seconds_ago=48791)
+0000.049 (0) Set semaphore last lock (fd) time to 2019-12-02 07:37:12
+0000.051 (0) Semaphore lock (fd) complete
+0000.059 (0) Backup run: resumption=0, nonce=3c0f873069b2, file_nonce=3c0f873069b2 begun at=1575272232 (0s ago), job type=backup
+0000.064 (0) Scheduling a resumption (1) after 300 seconds (1575272532) in case this run gets aborted
+0000.105 (0) Checking if we have a zip executable available
+0000.110 (0) Creation of backups of directories: beginning
+0000.133 (0) Beginning creation of dump of plugins (split every: 400 MB)
+0003.436 (0) Total entities for the zip file: 782 directories, 4554 files (0 skipped as non-modified), 69.1 MB
+0003.445 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0 MB, 1 (1) files added so far); re-opening (prior size: 0 KB)
+0005.762 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 100 files added (on-disk size: 151.6 KB)
+0006.357 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 200 files added (on-disk size: 151.6 KB)
+0006.478 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (5.6 MB, 210 (211) files added so far); re-opening (prior size: 151.6 KB)
+0010.608 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (1.4 MB, 29 (240) files added so far); re-opening (prior size: 1736.3 KB)
+0013.435 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 300 files added (on-disk size: 2111 KB)
+0013.479 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.8 MB, 63 (303) files added so far); re-opening (prior size: 2111 KB)
+0015.366 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 400 files added (on-disk size: 2341.4 KB)
+0015.628 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 500 files added (on-disk size: 2341.4 KB)
+0016.547 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (5.5 MB, 239 (542) files added so far); re-opening (prior size: 2341.4 KB)
+0017.953 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 600 files added (on-disk size: 3948.1 KB)
+0019.493 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.6 MB, 132 (674) files added so far); re-opening (prior size: 3948.1 KB)
+0020.283 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 700 files added (on-disk size: 4161.8 KB)
+0022.484 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.6 MB, 116 (790) files added so far); re-opening (prior size: 4161.8 KB)
+0023.005 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 800 files added (on-disk size: 4382.8 KB)
+0025.466 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 900 files added (on-disk size: 4382.8 KB)
+0025.484 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.9 MB, 111 (901) files added so far); re-opening (prior size: 4382.8 KB)
+0027.601 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1000 files added (on-disk size: 4638 KB)
+0028.484 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.6 MB, 141 (1042) files added so far); re-opening (prior size: 4638 KB)
+0029.664 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1100 files added (on-disk size: 4830 KB)
+0031.486 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.2 MB, 153 (1195) files added so far); re-opening (prior size: 4830 KB)
+0031.874 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1200 files added (on-disk size: 4956.8 KB)
+0033.342 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1300 files added (on-disk size: 4956.8 KB)
+0034.476 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.6 MB, 178 (1373) files added so far); re-opening (prior size: 4956.8 KB)
+0035.504 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1400 files added (on-disk size: 5171.3 KB)
+0037.478 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.6 MB, 117 (1490) files added so far); re-opening (prior size: 5171.3 KB)
+0038.058 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1500 files added (on-disk size: 5339.8 KB)
+0040.247 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1600 files added (on-disk size: 5339.8 KB)
+0040.472 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (1.2 MB, 124 (1614) files added so far); re-opening (prior size: 5339.8 KB)
+0043.228 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1700 files added (on-disk size: 5710.5 KB)
+0044.491 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (5 MB, 177 (1791) files added so far); re-opening (prior size: 5710.5 KB)
+0046.569 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1800 files added (on-disk size: 9294.7 KB)
+0047.499 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.4 MB, 39 (1830) files added so far); re-opening (prior size: 9294.7 KB)
+0050.487 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.6 MB, 24 (1854) files added so far); re-opening (prior size: 9441 KB)
+0053.483 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.2 MB, 11 (1865) files added so far); re-opening (prior size: 9528.9 KB)
+0056.546 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.9 MB, 30 (1895) files added so far); re-opening (prior size: 9552.7 KB)
+0057.552 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 1900 files added (on-disk size: 9802.1 KB)
+0059.472 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (4 MB, 66 (1961) files added so far); re-opening (prior size: 9802.1 KB)
+0061.042 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2000 files added (on-disk size: 10802.1 KB)
+0062.566 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (9.8 MB, 78 (2039) files added so far); re-opening (prior size: 10802.1 KB)
+0066.778 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.4 MB, 38 (2077) files added so far); re-opening (prior size: 13378.3 KB)
+0068.277 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2100 files added (on-disk size: 13513.5 KB)
+0069.488 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.2 MB, 67 (2144) files added so far); re-opening (prior size: 13513.5 KB)
+0070.949 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2200 files added (on-disk size: 13600.4 KB)
+0072.485 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.2 MB, 154 (2298) files added so far); re-opening (prior size: 13600.4 KB)
+0072.842 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2300 files added (on-disk size: 13744.6 KB)
+0075.129 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2400 files added (on-disk size: 13744.6 KB)
+0075.514 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.6 MB, 113 (2411) files added so far); re-opening (prior size: 13744.6 KB)
+0078.348 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2500 files added (on-disk size: 13908.1 KB)
+0078.501 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.5 MB, 94 (2505) files added so far); re-opening (prior size: 13908.1 KB)
+0081.048 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2600 files added (on-disk size: 14147.8 KB)
+0081.514 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.4 MB, 117 (2622) files added so far); re-opening (prior size: 14147.8 KB)
+0084.336 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2700 files added (on-disk size: 14282.7 KB)
+0084.483 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.2 MB, 84 (2706) files added so far); re-opening (prior size: 14282.7 KB)
+0087.500 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (1 MB, 46 (2752) files added so far); re-opening (prior size: 14374.3 KB)
+0090.190 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2800 files added (on-disk size: 14599.5 KB)
+0090.493 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.4 MB, 66 (2818) files added so far); re-opening (prior size: 14599.5 KB)
+0093.478 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0 MB, 67 (2885) files added so far); re-opening (prior size: 14721.3 KB)
+0094.981 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 2900 files added (on-disk size: 14768.3 KB)
+0096.477 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.1 MB, 52 (2937) files added so far); re-opening (prior size: 14768.3 KB)
+0099.614 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0 MB, 6 (2943) files added so far); re-opening (prior size: 14836.2 KB)
+0103.471 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.1 MB, 36 (2979) files added so far); re-opening (prior size: 14848.7 KB)
+0104.573 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3000 files added (on-disk size: 14886.3 KB)
+0106.481 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.5 MB, 99 (3078) files added so far); re-opening (prior size: 14886.3 KB)
+0107.383 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3100 files added (on-disk size: 15057.8 KB)
+0109.404 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3200 files added (on-disk size: 15057.8 KB)
+0109.505 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.3 MB, 125 (3203) files added so far); re-opening (prior size: 15057.8 KB)
+0112.478 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.2 MB, 88 (3291) files added so far); re-opening (prior size: 15185.7 KB)
+0113.302 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3300 files added (on-disk size: 15280.4 KB)
+0114.556 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3400 files added (on-disk size: 15280.4 KB)
+0115.487 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (1 MB, 179 (3470) files added so far); re-opening (prior size: 15280.4 KB)
+0116.576 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3500 files added (on-disk size: 15742.2 KB)
+0118.473 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (4.7 MB, 81 (3551) files added so far); re-opening (prior size: 15742.2 KB)
+0122.501 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (1.5 MB, 46 (3597) files added so far); re-opening (prior size: 16952.1 KB)
+0123.317 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3600 files added (on-disk size: 17398.1 KB)
+0124.856 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3700 files added (on-disk size: 17398.1 KB)
+0125.507 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (2.2 MB, 154 (3751) files added so far); re-opening (prior size: 17398.1 KB)
+0127.392 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3800 files added (on-disk size: 18069.6 KB)
+0128.479 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.5 MB, 95 (3846) files added so far); re-opening (prior size: 18069.6 KB)
+0130.615 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 3900 files added (on-disk size: 18203 KB)
+0131.472 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.4 MB, 81 (3927) files added so far); re-opening (prior size: 18203 KB)
+0133.983 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 4000 files added (on-disk size: 18339.2 KB)
+0134.489 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.7 MB, 104 (4031) files added so far); re-opening (prior size: 18339.2 KB)
+0138.544 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.7 MB, 39 (4070) files added so far); re-opening (prior size: 18547.8 KB)
+0140.396 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 4100 files added (on-disk size: 18715.6 KB)
+0141.475 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (2.9 MB, 84 (4154) files added so far); re-opening (prior size: 18715.6 KB)
+0143.042 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 4200 files added (on-disk size: 20766.8 KB)
+0144.546 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (3.3 MB, 118 (4272) files added so far); re-opening (prior size: 20766.8 KB)
+0148.568 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.2 MB, 22 (4294) files added so far); re-opening (prior size: 21584.2 KB)
+0149.266 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 4300 files added (on-disk size: 21644 KB)
+0150.455 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 4400 files added (on-disk size: 21644 KB)
+0151.492 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (4.3 MB, 128 (4422) files added so far); re-opening (prior size: 21644 KB)
+0155.486 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (0.1 MB, 31 (4453) files added so far); re-opening (prior size: 24237.6 KB)
+0156.544 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip.tmp: 4500 files added (on-disk size: 24285.6 KB)
+0158.240 (0) Created plugins zip (0) - 25375.9 KB in 158.1 s (160.5 KB/s) (sha1: b99d843b997eb3da9d1d134690fbe58b2ef936cb, sha256: 485c61f542c2b1c6b18bf9e3b73b4ebb8dd709b095c37f3738b7d1ee3439ee49)
+0158.261 (0) Beginning creation of dump of themes (split every: 400 MB)
+0159.092 (0) Total entities for the zip file: 159 directories, 889 files (0 skipped as non-modified), 34.2 MB
+0160.480 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (1.6 MB, 76 (76) files added so far); re-opening (prior size: 0 KB)
+0161.071 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip.tmp: 100 files added (on-disk size: 541.3 KB)
+0161.488 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip.tmp: 200 files added (on-disk size: 541.3 KB)
+0162.322 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip.tmp: 300 files added (on-disk size: 541.3 KB)
+0163.474 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (3.4 MB, 257 (333) files added so far); re-opening (prior size: 541.3 KB)
+0167.070 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (3.9 MB, 42 (375) files added so far); re-opening (prior size: 1589.4 KB)
+0169.511 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip.tmp: 400 files added (on-disk size: 2570.7 KB)
+0170.478 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (11.8 MB, 101 (476) files added so far); re-opening (prior size: 2570.7 KB)
+0173.962 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip.tmp: 500 files added (on-disk size: 6416.7 KB)
+0174.357 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip.tmp: 600 files added (on-disk size: 6416.7 KB)
+0176.477 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (4.8 MB, 203 (679) files added so far); re-opening (prior size: 6416.7 KB)
+0178.397 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip.tmp: 700 files added (on-disk size: 7678 KB)
+0180.113 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip.tmp: 800 files added (on-disk size: 7678 KB)
+0180.479 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 2.0 seconds have passed since the last write (7.2 MB, 153 (832) files added so far); re-opening (prior size: 7678 KB)
+0183.701 (0) Created themes zip (0) - 10046.2 KB in 25.4 s (395.3 KB/s) (sha1: e43889237e2391f48bae9319603fa722da1aac70, sha256: c37f82acedfe7383f7a957b27871d8277bf4f864c7558561e816f8b710869b8a)
+0183.733 (0) Exclusion option setting (uploads): backup*,*backups,backwpup*,wp-clone,snapshots
+0183.738 (0) Looking for candidates to backup in: C:\xampp\htdocs\krafty/wp-content/uploads
+0183.743 (0) finding files: 2019: adding to list (1)
+0183.747 (0) finding files: et_temp: adding to list (2)
+0183.752 (0) finding files: slider2: adding to list (3)
+0183.757 (0) finding files: wp-security-audit-log: adding to list (4)
+0183.761 (0) Beginning creation of dump of uploads (split every: 400 MB)
+0185.001 (0) Total entities for the zip file: 7 directories, 1908 files (0 skipped as non-modified), 275.1 MB
+0185.094 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 100 files added (on-disk size: 0 KB)
+0185.187 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 200 files added (on-disk size: 0 KB)
+0185.445 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 300 files added (on-disk size: 0 KB)
+0185.513 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 25 MB added on this batch (28 MB, 1908 files batched, 366 (366) added so far); re-opening (prior size: 0 KB)
+0186.621 (0) A useful amount of data was added after this amount of zip processing: 3.2 s (normalised: 2.8 s, rate: 9106.2 KB/s)
+0186.631 (0) Performance is good - will increase the amount of data we attempt to batch (time=3.150151014328, normalised_time=2.8112660715072, max_time=186.62484693527, data points known=1, old_max_bytes=26214400, new_max_bytes=209715200)
+0186.707 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 400 files added (on-disk size: 28753 KB)
+0186.886 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 500 files added (on-disk size: 28753 KB)
+0186.987 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 600 files added (on-disk size: 28753 KB)
+0187.080 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 700 files added (on-disk size: 28753 KB)
+0187.173 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 800 files added (on-disk size: 28753 KB)
+0187.235 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 500 files added on this batch (73.9 MB, 1908 files batched, 501 (867) added so far); re-opening (prior size: 28753 KB)
+0189.792 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 900 files added (on-disk size: 104528.6 KB)
+0189.929 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1000 files added (on-disk size: 104528.6 KB)
+0190.030 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1100 files added (on-disk size: 104528.6 KB)
+0190.124 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1200 files added (on-disk size: 104528.6 KB)
+0190.216 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1300 files added (on-disk size: 104528.6 KB)
+0190.281 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 500 files added on this batch (82 MB, 1908 files batched, 501 (1368) added so far); re-opening (prior size: 104528.6 KB)
+0203.324 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1400 files added (on-disk size: 188625.8 KB)
+0203.481 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1500 files added (on-disk size: 188625.8 KB)
+0203.549 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1600 files added (on-disk size: 188625.8 KB)
+0203.605 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1700 files added (on-disk size: 188625.8 KB)
+0203.660 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1800 files added (on-disk size: 188625.8 KB)
+0203.761 (0) Adding batch to zip file (UpdraftPlus_ZipArchive): over 500 files added on this batch (90.2 MB, 1908 files batched, 501 (1869) added so far); re-opening (prior size: 188625.8 KB)
+0217.056 (0) Zip: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip.tmp: 1900 files added (on-disk size: 281082.2 KB)
+0224.022 (0) Created uploads zip (0) - 282066.5 KB in 40.2 s (7010.8 KB/s) (sha1: a81bda167d4ec81565d0c8ac07f6fd6343852ec1, sha256: ca25b1cc1285a03a22f2c2696fb6b29552fd6dc9244d931da501450b8d172cdb)
+0224.147 (0) Beginning backup of other directories found in the content directory (index: 0)
+0224.243 (0) Exclusion option setting (others): upgrade,cache,updraft,backup*,*backups,mysql.sql,debug.log
+0224.277 (0) Looking for candidates to backup in: C:\xampp\htdocs\krafty/wp-content
+0224.314 (0) finding files: aiowps_backups: skipping: excluded by options (glob)
+0224.351 (0) finding files: cache: skipping: excluded by options
+0224.384 (0) finding files: et-cache: adding to list (1)
+0224.417 (0) finding files: et-cache-old: adding to list (2)
+0224.449 (0) finding files: index.php: adding to list (3)
+0224.482 (0) finding files: index.php-old: adding to list (4)
+0224.514 (0) finding files: mu-plugins: adding to list (5)
+0224.547 (0) finding files: mu-plugins-old: adding to list (6)
+0224.580 (0) finding files: plugins: skipping: this is the plugins directory
+0224.613 (0) finding files: plugins-old: adding to list (7)
+0224.703 (0) finding files: themes: skipping: this is the themes directory
+0224.766 (0) finding files: themes-old: adding to list (8)
+0224.799 (0) finding files: updraft: skipping: this is the updraft directory
+0224.831 (0) finding files: upgrade: skipping: excluded by options
+0224.864 (0) finding files: uploads: skipping: this is the uploads directory
+0224.897 (0) finding files: uploads-old: adding to list (9)
+0225.068 (0) Total entities for the zip file: 14 directories, 27 files (0 skipped as non-modified), 21.6 MB
+0229.286 (0) Created others zip (0) - 3953 KB in 4.3 s (913.4 KB/s) (sha1: 94f4d2583ba12251ea2e4da9eaebf74123ea27bf, sha256: 93574e5a84d537225b07dd84f03e5fe218aa2501e07aa868a4849f65ca06c566)
+0229.553 (0) Saving backup status to database (elements: 8)
+0229.763 (0) Beginning creation of database dump (WordPress DB)
+0230.252 (0) Table kr_options: Total expected rows (approximate): 346
+0230.539 (0) Table kr_options: Total rows added: 348 in 0.24 seconds
+0230.625 (0) Table kr_options: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_options.table.gz - 222.7 KB)
+0230.788 (0) Table kr_users: Total expected rows (approximate): 0
+0230.920 (0) Table kr_users: Total rows added: 1 in 0.09 seconds
+0230.974 (0) Table kr_users: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_users.table.gz - 0.5 KB)
+0231.395 (0) Table kr_usermeta: Total expected rows (approximate): 30
+0231.520 (0) Table kr_usermeta: Total rows added: 30 in 0.09 seconds
+0231.575 (0) Table kr_usermeta: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_usermeta.table.gz - 1.8 KB)
+0231.717 (0) Table kr_commentmeta: Total expected rows (approximate): 0
+0231.810 (0) Table kr_commentmeta: Total rows added: 0 in 0.05 seconds
+0231.898 (0) Table kr_commentmeta: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_commentmeta.table.gz - 0.4 KB)
+0232.060 (0) Table kr_comments: Total expected rows (approximate): 0
+0232.230 (0) Table kr_comments: Total rows added: 1 in 0.09 seconds
+0232.279 (0) Table kr_comments: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_comments.table.gz - 0.7 KB)
+0232.310 (0) Table kr_links: Total expected rows (approximate): 0
+0232.356 (0) Table kr_links: Total rows added: 0 in 0.04 seconds
+0232.376 (0) Table kr_links: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_links.table.gz - 0.4 KB)
+0232.400 (0) Table kr_postmeta: Total expected rows (approximate): 2006
+0232.568 (0) Table kr_postmeta: Total rows added: 2123 in 0.16 seconds
+0232.582 (0) Table kr_postmeta: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_postmeta.table.gz - 95 KB)
+0232.598 (0) Table kr_posts: Total expected rows (approximate): 924
+0233.138 (0) Table kr_posts: Total rows added: 1016 in 0.54 seconds
+0233.148 (0) Table kr_posts: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_posts.table.gz - 191.2 KB)
+0233.163 (0) Table kr_term_relationships: Total expected rows (approximate): 88
+0233.203 (0) Table kr_term_relationships: Total rows added: 91 in 0.04 seconds
+0233.223 (0) Table kr_term_relationships: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_term_relationships.table.gz - 0.6 KB)
+0233.247 (0) Table kr_term_taxonomy: Total expected rows (approximate): 17
+0233.304 (0) Table kr_term_taxonomy: Total rows added: 17 in 0.05 seconds
+0233.323 (0) Table kr_term_taxonomy: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_term_taxonomy.table.gz - 0.6 KB)
+0233.347 (0) Table kr_termmeta: Total expected rows (approximate): 4
+0233.397 (0) Table kr_termmeta: Total rows added: 4 in 0.04 seconds
+0233.416 (0) Table kr_termmeta: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_termmeta.table.gz - 0.4 KB)
+0233.439 (0) Table kr_terms: Total expected rows (approximate): 15
+0233.480 (0) Table kr_terms: Total rows added: 17 in 0.04 seconds
+0233.500 (0) Table kr_terms: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_terms.table.gz - 0.6 KB)
+0233.544 (0) Table kr_yoast_seo_links: Total expected rows (approximate): 21
+0233.602 (0) Table kr_yoast_seo_links: Total rows added: 21 in 0.05 seconds
+0233.623 (0) Table kr_yoast_seo_links: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_yoast_seo_links.table.gz - 0.6 KB)
+0233.651 (0) Table kr_yoast_seo_meta: Total expected rows (approximate): 653
+0233.718 (0) Table kr_yoast_seo_meta: Total rows added: 658 in 0.06 seconds
+0233.730 (0) Table kr_yoast_seo_meta: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_yoast_seo_meta.table.gz - 2 KB)
+0233.745 (0) Table kr_aiowps_events: Total expected rows (approximate): 0
+0233.797 (0) Table kr_aiowps_events: Total rows added: 0 in 0.05 seconds
+0233.815 (0) Table kr_aiowps_events: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_aiowps_events.table.gz - 0.4 KB)
+0233.838 (0) Table kr_aiowps_global_meta: Total expected rows (approximate): 0
+0233.884 (0) Table kr_aiowps_global_meta: Total rows added: 0 in 0.04 seconds
+0233.903 (0) Table kr_aiowps_global_meta: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_aiowps_global_meta.table.gz - 0.4 KB)
+0233.931 (0) Table kr_aiowps_login_lockdown: Total expected rows (approximate): 0
+0233.987 (0) Table kr_aiowps_login_lockdown: Total rows added: 0 in 0.05 seconds
+0234.004 (0) Table kr_aiowps_login_lockdown: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_aiowps_login_lockdown.table.gz - 0.4 KB)
+0234.024 (0) Table kr_aiowps_permanent_block: Total expected rows (approximate): 0
+0234.065 (0) Table kr_aiowps_permanent_block: Total rows added: 0 in 0.04 seconds
+0234.084 (0) Table kr_aiowps_permanent_block: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_aiowps_permanent_block.table.gz - 0.4 KB)
+0234.111 (0) Table kr_nextend2_image_storage: Total expected rows (approximate): 2
+0234.160 (0) Table kr_nextend2_image_storage: Total rows added: 3 in 0.05 seconds
+0234.179 (0) Table kr_nextend2_image_storage: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_image_storage.table.gz - 0.6 KB)
+0234.206 (0) Table kr_nextend2_section_storage: Total expected rows (approximate): 2
+0234.254 (0) Table kr_nextend2_section_storage: Total rows added: 2 in 0.04 seconds
+0234.272 (0) Table kr_nextend2_section_storage: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_section_storage.table.gz - 0.5 KB)
+0234.298 (0) Table kr_nextend2_smartslider3_generators: Total expected rows (approximate): 0
+0234.335 (0) Table kr_nextend2_smartslider3_generators: Total rows added: 0 in 0.03 seconds
+0234.353 (0) Table kr_nextend2_smartslider3_generators: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_smartslider3_generators.table.gz - 0.3 KB)
+0234.382 (0) Table kr_nextend2_smartslider3_sliders: Total expected rows (approximate): 2
+0234.426 (0) Table kr_nextend2_smartslider3_sliders: Total rows added: 2 in 0.04 seconds
+0234.443 (0) Table kr_nextend2_smartslider3_sliders: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_smartslider3_sliders.table.gz - 3.1 KB)
+0234.468 (0) Table kr_nextend2_smartslider3_sliders_xref: Total expected rows (approximate): 0
+0234.505 (0) Table kr_nextend2_smartslider3_sliders_xref: Total rows added: 1 in 0.03 seconds
+0234.522 (0) Table kr_nextend2_smartslider3_sliders_xref: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_smartslider3_sliders_xref.table.gz - 0.3 KB)
+0234.547 (0) Table kr_nextend2_smartslider3_slides: Total expected rows (approximate): 5
+0234.596 (0) Table kr_nextend2_smartslider3_slides: Total rows added: 6 in 0.05 seconds
+0234.614 (0) Table kr_nextend2_smartslider3_slides: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_smartslider3_slides.table.gz - 3.9 KB)
+0234.641 (0) Table kr_smush_dir_images: Total expected rows (approximate): 0
+0234.683 (0) Table kr_smush_dir_images: Total rows added: 0 in 0.04 seconds
+0234.700 (0) Table kr_smush_dir_images: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_smush_dir_images.table.gz - 0.4 KB)
+0234.725 (0) Table kr_wsal_metadata: Total expected rows (approximate): 43003
+0237.047 (0) Table kr_wsal_metadata: Total rows added: 45850 in 2.32 seconds
+0237.060 (0) Table kr_wsal_metadata: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_wsal_metadata.table.gz - 314.3 KB)
+0237.074 (0) Table kr_wsal_occurrences: Total expected rows (approximate): 3531
+0237.228 (0) Table kr_wsal_occurrences: Total rows added: 3842 in 0.15 seconds
+0237.245 (0) Table kr_wsal_occurrences: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_wsal_occurrences.table.gz - 40.4 KB)
+0237.264 (0) Table kr_wsal_options: Total expected rows (approximate): 14
+0237.308 (0) Table kr_wsal_options: Total rows added: 14 in 0.04 seconds
+0237.325 (0) Table kr_wsal_options: finishing file (backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_wsal_options.table.gz - 1 KB)
+0237.343 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_options.table.gz (1/28): adding to final database dump
+0237.441 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_users.table.gz (2/28): adding to final database dump
+0237.445 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_usermeta.table.gz (3/28): adding to final database dump
+0237.448 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_commentmeta.table.gz (4/28): adding to final database dump
+0237.451 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_comments.table.gz (5/28): adding to final database dump
+0237.453 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_links.table.gz (6/28): adding to final database dump
+0237.457 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_postmeta.table.gz (7/28): adding to final database dump
+0237.511 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_posts.table.gz (8/28): adding to final database dump
+0237.653 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_term_relationships.table.gz (9/28): adding to final database dump
+0237.657 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_term_taxonomy.table.gz (10/28): adding to final database dump
+0237.660 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_termmeta.table.gz (11/28): adding to final database dump
+0237.663 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_terms.table.gz (12/28): adding to final database dump
+0237.666 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_yoast_seo_links.table.gz (13/28): adding to final database dump
+0237.670 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_yoast_seo_meta.table.gz (14/28): adding to final database dump
+0237.674 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_aiowps_events.table.gz (15/28): adding to final database dump
+0237.677 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_aiowps_global_meta.table.gz (16/28): adding to final database dump
+0237.681 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_aiowps_login_lockdown.table.gz (17/28): adding to final database dump
+0237.684 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_aiowps_permanent_block.table.gz (18/28): adding to final database dump
+0237.687 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_image_storage.table.gz (19/28): adding to final database dump
+0237.691 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_section_storage.table.gz (20/28): adding to final database dump
+0237.694 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_smartslider3_generators.table.gz (21/28): adding to final database dump
+0237.697 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_smartslider3_sliders.table.gz (22/28): adding to final database dump
+0237.701 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_smartslider3_sliders_xref.table.gz (23/28): adding to final database dump
+0237.704 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_nextend2_smartslider3_slides.table.gz (24/28): adding to final database dump
+0237.708 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_smush_dir_images.table.gz (25/28): adding to final database dump
+0237.711 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_wsal_metadata.table.gz (26/28): adding to final database dump
+0237.929 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_wsal_occurrences.table.gz (27/28): adding to final database dump
+0237.948 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db-table-kr_wsal_options.table.gz (28/28): adding to final database dump
+0237.983 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db.gz: finished writing out complete database file (856 KB)
+0238.046 (0) Total database tables backed up: 28 (backup_2019-12-02-0737_Krafty_3c0f873069b2-db.gz, size: 899270, sha1: 47df86ccf42a85e0189d96a0ea0f127c026176e2, sha256: 36a8730ff61cfb666d86e18effa02be45731a75d7e4a274c4040df0e714a1725)
+0238.070 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip: plugins: This file has not yet been successfully uploaded: will queue
+0238.074 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip: themes: This file has not yet been successfully uploaded: will queue
+0238.078 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip: uploads: This file has not yet been successfully uploaded: will queue
+0238.082 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-others.zip: others: This file has not yet been successfully uploaded: will queue
+0238.086 (0) backup_2019-12-02-0737_Krafty_3c0f873069b2-db.gz: db: This file has not yet been successfully uploaded: will queue
+0238.089 (0) Saving backup history. Total backup size: 314.8 MB
+0238.100 (0) Requesting upload of the files that have not yet been successfully uploaded (5)
+0238.112 (0) Cloud backup selection (1/1): none with instance (1/1) (last)
+0238.115 (0) No remote despatch: user chose no remote backup service
+0238.119 (0) Recording as successfully uploaded: backup_2019-12-02-0737_Krafty_3c0f873069b2-plugins.zip
+0238.127 (0) Recording as successfully uploaded: backup_2019-12-02-0737_Krafty_3c0f873069b2-themes.zip
+0238.135 (0) Recording as successfully uploaded: backup_2019-12-02-0737_Krafty_3c0f873069b2-uploads.zip
+0238.143 (0) Recording as successfully uploaded: backup_2019-12-02-0737_Krafty_3c0f873069b2-others.zip
+0238.152 (0) Recording as successfully uploaded: backup_2019-12-02-0737_Krafty_3c0f873069b2-db.gz
+0238.164 (0) Retain: beginning examination of existing backup sets; user setting: retain_files=5, retain_db=5
+0238.170 (0) Number of backup sets in history: 6; groups (db): 1
+0238.173 (0) Examining (for databases) backup set with group_id=0, nonce=3c0f873069b2, datestamp=1575272232 (Dec 02 2019 07:37:12)
+0238.177 (0) This backup set is the backup set just made, so will not be deleted.
+0238.177 (0) Examining (for databases) backup set with group_id=0, nonce=3c543f052a9b, datestamp=1575223441 (Dec 01 2019 18:04:01)
+0238.177 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0238.180 (0) Examining (for databases) backup set with group_id=0, nonce=78dce3540262, datestamp=1575219095 (Dec 01 2019 16:51:35)
+0238.180 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0238.180 (0) Examining (for databases) backup set with group_id=0, nonce=8ee4b822b284, datestamp=1575209075 (Dec 01 2019 14:04:35)
+0238.181 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0238.181 (0) Examining (for databases) backup set with group_id=0, nonce=0787cdde6bbc, datestamp=1575201840 (Dec 01 2019 12:04:00)
+0238.181 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0238.181 (0) Examining (for databases) backup set with group_id=0, nonce=97f323eb72c2, datestamp=1575194664 (Dec 01 2019 10:04:24)
+0238.182 (0) 1575194664: db: this set includes a database (backup_2019-12-01-1004_Krafty_97f323eb72c2-db.gz); db count is now 5
+0238.182 (0) 1575194664: db: over retain limit (5); will delete this database
+0238.182 (0) Delete file: backup_2019-12-01-1004_Krafty_97f323eb72c2-db.gz, service=none
+0238.190 (0) This backup set remains non-empty (f=1/d=0); will retain in history
+0238.193 (0) Number of backup sets in history: 6; groups (files): 1
+0238.197 (0) Examining (for files) backup set with nonce=3c0f873069b2, datestamp=1575272232 (Dec 02 2019 07:37:12)
+0238.197 (0) This backup set is the backup set just made, so will not be deleted.
+0238.201 (0) This backup set is the backup set just made, so will not be deleted.
+0238.201 (0) This backup set is the backup set just made, so will not be deleted.
+0238.202 (0) This backup set is the backup set just made, so will not be deleted.
+0238.202 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0238.205 (0) Examining (for files) backup set with nonce=3c543f052a9b, datestamp=1575223441 (Dec 01 2019 18:04:01)
+0238.205 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0238.206 (0) Examining (for files) backup set with nonce=78dce3540262, datestamp=1575219095 (Dec 01 2019 16:51:35)
+0238.206 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0238.206 (0) Examining (for files) backup set with nonce=8ee4b822b284, datestamp=1575209075 (Dec 01 2019 14:04:35)
+0238.206 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0238.207 (0) Examining (for files) backup set with nonce=0787cdde6bbc, datestamp=1575201840 (Dec 01 2019 12:04:00)
+0238.207 (0) This backup set remains non-empty (f=1/d=1); will retain in history
+0238.207 (0) Examining (for files) backup set with nonce=97f323eb72c2, datestamp=1575194664 (Dec 01 2019 10:04:24)
+0238.207 (0) plugins: over retain limit (5); will delete this file entity
+0238.207 (0) themes: over retain limit (5); will delete this file entity
+0238.207 (0) uploads: over retain limit (5); will delete this file entity
+0238.207 (0) others: over retain limit (5); will delete this file entity
+0238.207 (0) Delete file: backup_2019-12-01-1004_Krafty_97f323eb72c2-plugins.zip, service=none
+0238.211 (0) Delete file: backup_2019-12-01-1004_Krafty_97f323eb72c2-themes.zip, service=none
+0238.214 (0) Delete file: backup_2019-12-01-1004_Krafty_97f323eb72c2-uploads.zip, service=none
+0238.218 (0) Delete file: backup_2019-12-01-1004_Krafty_97f323eb72c2-others.zip, service=none
+0238.226 (0) This backup set is now empty; will remove from history
+0238.230 (0) Deleting log file (log.97f323eb72c2.txt)
+0238.240 (0) Retain: saving new backup history (sets now: 5) and finishing retain operation
+0238.254 (0) Resume backup (3c0f873069b2, 0): finish run
+0238.262 (0) Decremented the semaphore (fd) by 1
+0238.268 (0) Semaphore (fd) unlocked
+0238.272 (0) There were no errors in the uploads, so the 'resume' event (1) is being unscheduled
+0238.285 (0) No email will/can be sent - the user has not configured an email address.
+0238.288 (0) The backup apparently succeeded and is now complete

@@ -30,7 +30,9 @@
 .single-products #menu-item-796 a {
     color: #f36c5d;
 }
-
+.single-products .et_pb_text_align_left{
+    text-align: left;
+}
 .single-products h1 {
     font-family: 'Kaushan Script', handwriting !important;
 }
@@ -284,7 +286,7 @@ span.wpcf7-not-valid-tip {
 }
 
 .et_pb_tabs_controls li:hover a {
-    color: white !important;
+    color: #f36c5d !important;
 }
 
 ul.et_pb_tabs_controls {
